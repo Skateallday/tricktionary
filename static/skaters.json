@@ -1,0 +1,53 @@
+{
+	"skaters": 
+	{ 
+		"Name":
+			["Antwuan Dickson": { 
+				"Stance": "Goofy",
+				"Age": "28",
+				"Gender": "Male",
+				"Skaterboard": "Deathwish",
+				"Shoes": "Supra",
+				"Trucks": "Thunders",
+				"Wheels": "Spitfires"}
+	],
+		
+			["Chris Haslam": { 
+				"Stance": "Goofy",
+				"Age": "37",
+				"Gender": "Male",
+				"Skaterboard": "Almost",
+				"Shoes": "Globe",
+				"Trucks": "Independents",
+				"Wheels": "Bones"}
+	],
+			["John Rattery ":{ 
+				"Stance": "Regular",
+				"Age": "41",
+				"Gender": "Male",
+				"Skaterboard": "Death",
+				"Shoes": "eS",
+				"Trucks": "Thunders",
+				"Wheels": "OJs"}
+	],
+			["Eric  Koston ":{ 
+				"Stance": "Regular",
+				"Age": "43",
+				"Gender": "Male",
+				"Skaterboard": "Girl",
+				"Shoes": "Nike",
+				"Trucks": "Independents",
+				"Wheels": "Spitfires"}
+	],
+			["Nyjah Huston ", {
+				"Stance": "Regular",
+				"Age": "23",
+				"Gender": "Male",
+				"Skaterboard": "Element",
+				"Shoes": "Nike",
+				"Trucks": "Thunders",
+				"Wheels": "Ricta"}
+	]
+	}
+		
+}
