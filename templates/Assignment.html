@@ -7,6 +7,10 @@
 			border: 3px solid black;
 			border-collapse: collapse;
 			}
+	.thick-border, th, td {
+			padding: 5px;
+			border: 1px solid black;
+			}
 	body{
 		padding-top: 50px;
 	}
@@ -51,18 +55,18 @@
 </div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-xl-12">
 			<table class="centered thick-border">
 				<tr>
-					<th>Skater</th>
+					<th><h1>Stats</h1></th>
 					<th></th>
-					<th>Facts</th>
+					<th><h1>Skater</h1></th>
 				</tr>
 				{% for s, facts in skater.items() %}
 				<tr>
-					<td><a href="#">{{ s }}</a></td>
+					<td><h2><a href={{ s }}}}>{{ s }}</a></h2></td>
 					<td></td>
-					<td><a href="#">{{ facts }}</a></td>
+					<td><h2><a href={{ url_for ('results')}} {{ facts }}> {{ facts }}</a></h2></td>
 				</tr>
 				{% endfor %}
 			</table>

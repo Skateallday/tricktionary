@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<nav class="navbarnavbar-inverse  navbar-fixed-top">
+<nav class="navbar navbar-inverse  navbar-fixed-top">
 	<div class="container">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -31,7 +31,20 @@
 	</div>
 </nav>
 <div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<p><h1>Have we missed something out?</h1>
+			<p>We try our best to make sure all the information is up to date and that everyone is represented. If we've missed out on anything please fill out the form below to tell us what is wrong and we'll try to update our records as soon as possible! Thanks</p>
 		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<form action="/your-name/" method="post">
+				<label for="your_name">Your Name: </label>
+				<input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+				<input type="Submit" value="Ok">
+			</form>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
