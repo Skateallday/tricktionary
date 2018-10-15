@@ -3,6 +3,7 @@
 <title>Contact Page</title>
 <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"/>
 <style>
+
 	body{
 		padding-top: 50px;
 	}
@@ -34,15 +35,30 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<p><h1>Have we missed something out?</h1>
-			<p>We try our best to make sure all the information is up to date and that everyone is represented. If we've missed out on anything please fill out the form below to tell us what is wrong and we'll try to update our records as soon as possible! Thanks</p>
+			<p>We try our best to make sure all the information is up to date and that everyone is represented. If we've missed out on anything and you'd like to help us update our achieve please fill in this form with the skater's details and we'll updata the site. Thanks!</p>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-6">
-			<form action="/your-name/" method="post">
-				<label for="your_name">Your Name: </label>
-				<input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-				<input type="Submit" value="Ok">
+		<div class="col-lg-8">
+			<form class="upload" action="/upload/" method="post">
+				<label for="skater_name">Skater Name:		 </label>
+				<input id="skater_name" type="text" name="upload"><br>
+				<label for="skater_age">Skater Age:		 </label>
+				<input id="skater_age" type="text" name="skater_age"><br>
+				<label for="skater_gender">Skater Sex:		 </label>
+				<select  id="skater_gender" type="text" name="skater_gender">
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+				</select><br>
+				<label for="skater_board">Skaterboard Sponsor:	 </label>
+				<input id="skater_board" type="text" name="skater_board"><br>
+				<label for="skater_shoes">Shoe Sponsor:		 </label>
+				<input id="skater_shoe" type="text" name="skater_shoe"><br>
+				<label for="skater_truck">Truck Sponsor:	 </label>
+				<input id="skater_truck" type="text" name="skater_trucl"><br>
+				<label for="skater_wheel">Wheel Sponsor:	 </label>
+				<input id="skater_wheel" type="text" name="skater_wheel"><br>
+			<input type="Submit" value="Submit Skater">
 			</form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

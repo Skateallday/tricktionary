@@ -1,8 +1,16 @@
 <html>
 <head>
-<title>First Assignemnt: Skateboarding Directory</title>
+<title>Search Results</title>
 <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"/>
 <style>
+	.thick-border {
+			border:3px solid black;
+			border-collapse: collapse;
+			}
+	.thick-boreder, th, td {
+				padding: 5px;
+				border:1px solid black;
+				}
 	body{
 		padding-top: 50px;
 	}
@@ -35,6 +43,18 @@
 		<div class="col-lg-12">
 			{% if search %}
 				<p>You have searched for {{ search }}. Here are your results</p>
+					<table class="centered thick-border">
+						<tr>
+							<th><h1>Stats</h1></th>
+							<th><h1>Skater</h1></th>
+						</tr>
+						{% for s, facts in skater.items() %}
+						<tr>
+							<td><h2>{{ s }}</h2></td>
+							<td><h2>{{facts}}</h2></td>
+						</tr>
+						{% endfor %}
+							
 			{% else %}
 				<p> It didn't work!</p>
 			{% endif %}
