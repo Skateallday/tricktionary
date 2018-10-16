@@ -48,6 +48,13 @@
 		<div class="col-lg-12">
 			<form action="/Search/" method="POST" name="form">
 				<input type="text" palceholder="Search..." name="search" id="search" >
+				<select id="search_option" type="text" name="search_option">
+					<option name="Name" value="Name">Name</option>
+					<option name="Skateboard" value="Skateboard">Skateboard brand</option>
+					<option name="Shoe" value="Shoe">Shoe brand</option>
+					<option name="Truck" value="Truck">Truck sponsor</option>
+					<option name="Wheel" value="Wheel">Wheel sponsor</option>
+				</select>
 				<input type="submit" name="my-form" value="Search">
 			</form>
 		</div>
@@ -56,21 +63,7 @@
 <div class="container">
 	<div class="row">
 			<div class="col-xl-12">
-			<table class="centered thick-border">
-				<tr>
-					<th><h1>Stats</h1></th>
-					
-					<th><h1>Skater</h1></th>
-				</tr>					{% for s, facts in skater.items() %}
-
-		<tr>
-					<td><h2>{{ s }}</h2></td>
-					
-					<td><h2><a href={{ url_for ('results', stat=facts) }}> {{ facts }}</a></h2></td>
-
-				</tr>	{% endfor %}
-
-				</table>
+			<table class="centered thick-border"></table>
 		</div>		
 	</div>
 </div>
