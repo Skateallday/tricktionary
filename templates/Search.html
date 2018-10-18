@@ -3,12 +3,12 @@
 <title>Search Results</title>
 <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"/>
 <style>
-	.thick-border {
+	.thick-border {margin-left:-50px;
 			border:3px solid black;
 			border-collapse: collapse;
 			}
-	.thick-boreder, th, td {
-				padding: 5px;
+	.thick-border, th, td {
+				padding: 10px ;
 				border:1px solid black;
 				}
 	body{
@@ -41,24 +41,43 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
+			<form action="/Search/" method="POST" name="form">
+				<input type="text" placeholder="Search..." name="search" id="search">
+				<input type="submit" name="my-form" value="Search">
+			</form>
+		</div>
+	</div>
+	<div class="row">	
+		<div class="col-lg-12">
 			{% if search %}
-				<p>You have searched for {{ search }}. Here are your results</p>
+			<h2><p>You have searched for {{ search }}. Here are your results</p></h2>
 					<table class="centered thick-border">
+						
 						<tr>
-							<th><h1>Stats</h1></th>
-							<th><h1>Skater</h1></th>
+							<th><h1>Name</h1></th>
+	<th><h1>Stance</h1></th>
+	<th><h1>Age</h1></th>
+	<th><h1>Gender</h1></th>
+	<th><h1>Skateboard Sponsor</h1></th>
+	<th><h1>Shoe Sponsor</h1></th>
+	<th><h1>Truck Sponsor</h1></th>
+	<th><h1>Wheel Sponsor</h1></th>
+						
 						</tr>
+
+						<tr>	
 						{% for s, facts in skater.items() %}
-						<tr>
-							<td><h2>{{ s }}</h2></td>
-							<td><h2>{{facts}}</h2></td>
-						</tr>
+							<td><h2>{{facts}}</td>
+
+						
 						{% endfor %}
+						</tr>
+						
 							
 			{% else %}
-				<p> It didn't work!</p>
+				<p> Your search was unsucessful, please try again.</p>
 			{% endif %}
-		</div>
+		</table><br></div>
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

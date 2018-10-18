@@ -1,7 +1,10 @@
 from flask import Flask, flash, render_template, request, url_for
 import json
 
-data=[]	
+
+
+data=[]
+	
 with open('static/skaters.json') as f:
 	data = json.load(f)
 	f.close()
@@ -11,25 +14,32 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-	start ='<img src="'
-	url = url_for('static', filename='antwuan.png')
-	end = '">'
-	return start+url+end, 200
-	#return render_template("Assignment.html",  skater=data)
+	
+	url1 = url_for('static', filename='eric.png')
+	url2 = url_for('static', filename='leticia.png')
+	url = url_for('static', filename='chris.png')
+
+	return render_template("Assignment.html",url1=url1, url=url, url2=url2 )
 
 @app.route('/Search/', methods=['POST','GET'])
 def my_form_post():
 	
-		if request.method == 'POST':
-			print request.form
-			search = request.form['search_option']
-			for key, value in data.items():
-				if search in key:
-					print("TEST")
-				else:
-					print("This is not in our files")
+	if request.method == 'POST':
+		print request.form
+		search = request.form['search']
+			
+		for  skater in data:
+		
+			print("Value: " + str(skater))
+			if search in skater:
+				skater=skater[search]
+				print ("this worked")	
+				  
+			else:
+				return("There are no results for your search, try again.")
+				print ("DOES NOT WORK")
 	
-		return render_template("Search.html", search=search, skater=data)
+		return render_template("Search.html", search=search, skater=skater)
 
 
 @app.route('/about/')
@@ -39,7 +49,11 @@ def about():
 @app.route('/home/')
 def home():
 	
-	return render_template("Assignment.html", skater=data) 
+	url1 = url_for('static', filename='eric.png')
+	url2 = url_for('static', filename='leticia.png')
+	url = url_for('static', filename='chris.png')
+
+	return render_template("Assignment.html",url1=url1, url=url, url2=url2)
 
 @app.route('/contact/')
 def contact():
@@ -47,11 +61,16 @@ def contact():
 
 @app.route('/results/<string:stat>')
 def results(stat):
-	for skater in data['skaters']:
-		for v in data:
-			if stat in v:
-				return skater 
-	return render_template("results.html", skater=skater,  stat=stat)
+	txt_url=open('static/' + stat + '.txt') 
+	content = txt_url.read()
+	txt_url.close()
+	img_url = url_for('static', filename= stat+'.jpg')
+	for skaters in data:
+		print(skaters)
+		if stat in skaters:
+			skaters=skaters[stat]
+			print(skaters)
+		return render_template("results.html", skaters=skaters, img_url=img_url, txt_url=content,  stat=stat)
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():

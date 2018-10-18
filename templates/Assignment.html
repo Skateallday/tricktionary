@@ -2,15 +2,7 @@
 <head>
 <title>First Assignemnt: Skateboarding Directory</title>
 <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"/>
-<style>
-	.thick-border {
-			border: 3px solid black;
-			border-collapse: collapse;
-			}
-	.thick-border, th, td {
-			padding: 5px;
-			border: 1px solid black;
-			}
+<style>}
 	body{
 		padding-top: 50px;
 	}
@@ -29,7 +21,7 @@
 			<span class="icon-bar"></span>
 
 		</button>
-		<a class="navbar-brand" href="#">Trickionary</a>
+		<a class="navbar-brand" href={{ url_for ('home') }}>Trickionary</a>
 	</div>
 	<div id="navbar" class="collapse navbar-collapse">
 	<ul class="nav navbar-nav">
@@ -47,14 +39,8 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<form action="/Search/" method="POST" name="form">
-				<input type="text" palceholder="Search..." name="search" id="search" >
-				<select id="search_option" type="text" name="search_option">
-					<option name="Name" value="Name">Name</option>
-					<option name="Skateboard" value="Skateboard">Skateboard brand</option>
-					<option name="Shoe" value="Shoe">Shoe brand</option>
-					<option name="Truck" value="Truck">Truck sponsor</option>
-					<option name="Wheel" value="Wheel">Wheel sponsor</option>
-				</select>
+				<input type="text" placeholder="Search..." name="search" id="search" >
+				
 				<input type="submit" name="my-form" value="Search">
 			</form>
 		</div>
@@ -62,8 +48,14 @@
 </div>
 <div class="container">
 	<div class="row">
-			<div class="col-xl-12">
-			<table class="centered thick-border"></table>
+		<div class="col-xl-12">
+			<table>
+				<tr>
+					<td><a href={{ url_for ('results', stat="Chris")}}><img src={{url}}></a></td>
+					<td><a href={{ url_for ('results', stat="Eric")}}><img src={{url1}}></a></td>
+					<td><a href={{ url_for ('results', stat="Leticia")}}><img src={{url2}}></a></td>
+				</tr>
+			</table>
 		</div>		
 	</div>
 </div>
