@@ -15,19 +15,13 @@
 <nav class="navbar navbar-inverse  navbar-fixed-top">
 	<div class="container">
 	<div class="navbar-header">
-		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
- 			<span class"sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-		<a class="navbar-brand" href="#">Trickionary</a>
+	<a class="navbar-brand" href={{ url_for ('home')}}>Trickionary</a>
 	</div>
 	<div id="navbar" class="collapse navbar-collapse">
 	<ul class="nav navbar-nav">
-		<li class="active"><a href={{ url_for ('home') }}>Home</a></li>
+		<li><a href={{ url_for ('home') }}>Home</a></li>
 		<li><a href={{ url_for ('about') }}>About</a></li>
-		<li><a href={{ url_for('contact') }}>Contact</a></li>
+		<li class="active"><a href={{ url_for('contact') }}>Contact</a></li>
 	</ul>
 	</div>
 </nav>
@@ -40,25 +34,26 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-8">
+			<div class="form-group">				
 			<form class="upload" action="/upload/" method="post">
 				<label for="skater_name">Skater Name:		 </label>
-				<input id="skater_name" type="text" name="upload"><br>
+				<input class="form-control"  id="skater_name" type="text" name="upload"><br>
 				<label for="skater_age">Skater Age:		 </label>
-				<input id="skater_age" type="text" name="skater_age"><br>
+				<input class="form-control"  id="skater_age" type="text" name="skater_age"><br>
 				<label for="skater_gender">Skater Sex:		 </label>
-				<select  id="skater_gender" type="text" name="skater_gender">
+				<select class="form-control"  id="skater_gender" type="text" name="skater_gender">
 					<option value="Male">Male</option>
 					<option value="Female">Female</option>
 				</select><br>
 				<label for="skater_board">Skaterboard Sponsor:	 </label>
-				<input id="skater_board" type="text" name="skater_board"><br>
+				<input class="form-control"  id="skater_board" type="text" name="skater_board"><br>
 				<label for="skater_shoes">Shoe Sponsor:		 </label>
-				<input id="skater_shoe" type="text" name="skater_shoe"><br>
+				<input class="form-control"  id="skater_shoe" type="text" name="skater_shoe"><br>
 				<label for="skater_truck">Truck Sponsor:	 </label>
-				<input id="skater_truck" type="text" name="skater_trucl"><br>
+				<input class="form-control"  id="skater_truck" type="text" name="skater_trucl"><br>
 				<label for="skater_wheel">Wheel Sponsor:	 </label>
-				<input id="skater_wheel" type="text" name="skater_wheel"><br>
-			<input type="Submit" value="Submit Skater">
+				<input class="form-control"  id="skater_wheel" type="text" name="skater_wheel"><br>
+			<input class="btn btn-primary" type="Submit" value="Submit Skater">
 			</form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
