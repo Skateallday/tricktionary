@@ -1,6 +1,5 @@
-from flask import Flask, flash, render_template, request, url_for
+from flask import Flask, redirect, flash, render_template, request, url_for
 import json
-
 
 
 data=[]
@@ -12,18 +11,41 @@ with open('static/skaters.json') as f:
 
 app = Flask(__name__)
 
+@app.errorhandler(404)
+def page_not_found(error):
+	return render_template("404.html") 
+
 @app.route('/')
 def root():
 	
 	url1 = url_for('static', filename='eric.png')
 	url2 = url_for('static', filename='leticia.png')
 	url = url_for('static', filename='chris.png')
+	url3 = url_for('static', filename='david.png')
+	url4 = url_for('static', filename='Antwuan.png')
+	url5 = url_for('static', filename='Nyjah.png')
 
-	return render_template("Assignment.html",url1=url1, url=url, url2=url2 )
+	return render_template("Assignment.html", url1=url1, url=url, url2=url2, url3=url3, url4=url4, url5=url5)
 
-@app.route('/Search/', methods=['POST','GET'])
-def my_form_post():
+
+@app.route('/about/')
+def about():
+	return render_template("about.html")
+
+@app.route('/home/')
+def home():
 	
+	url1 = url_for('static', filename='eric.png')
+	url2 = url_for('static', filename='leticia.png')
+	url = url_for('static', filename='chris.png')
+	url3 = url_for('static', filename='david.png')
+	url4 = url_for('static', filename='Antwuan.png')
+	url5 = url_for('static', filename='Nyjah.png')
+
+	return render_template("Assignment.html", url1=url1, url=url, url2=url2, url3=url3, url4=url4, url5=url5)
+
+@app.route('/Search/', methods=['POST', 'GET'])
+def my_form_post():
 	if request.method == 'POST':
 		print request.form
 		search = request.form['search']
@@ -41,26 +63,22 @@ def my_form_post():
 	
 		return render_template("Search.html", search=search, skater=skater)
 
-
-@app.route('/about/')
-def about():
-	return render_template("about.html")
-
-@app.route('/home/')
-def home():
-	
-	url1 = url_for('static', filename='eric.png')
-	url2 = url_for('static', filename='leticia.png')
-	url = url_for('static', filename='chris.png')
-
-	return render_template("Assignment.html",url1=url1, url=url, url2=url2)
-
 @app.route('/contact/')
 def contact():
 	return render_template("contact.html")
 
+
+@app.route('/brand/<string:stat>')
+def brand(stat):
+	txt_url=open('static/' + stat + '.txt') 
+	content = txt_url.read()
+	txt_url.close()
+	img_url = url_for('static', filename= stat+'.jpg')
+	return render_template("brand.html", img_url=img_url, txt_url=content, stat=stat)
+
 @app.route('/results/<string:stat>')
 def results(stat):
+	
 	txt_url=open('static/' + stat + '.txt') 
 	content = txt_url.read()
 	txt_url.close()
