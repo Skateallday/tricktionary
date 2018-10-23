@@ -1,5 +1,5 @@
 
-[ {"Antwuan": {
+{
 			
 			"Stance": "Goofy",
 			"Skateboard": "Deathwish",
@@ -8,7 +8,7 @@
 			"Wheels": "Spitfires"
 		},
 	
-	"David":{
+{
 		
 			"Stance": "Goofy",
 			"Skateboard": "Flip",
@@ -17,7 +17,7 @@
 			"Wheels": "Spitfires"
 		},
 
-	"Chris":{
+{
 	
 			"Stance": "Goofy",
 			"Skateboard": "Almost",
@@ -26,7 +26,7 @@
 			"Wheels": "Bones"
 		},
 	
-	"Eric":{
+{
 			
 			"Stance": "Goofy",
 			"Skateboard": "Girl",
@@ -35,7 +35,7 @@
 			"Wheels": "Spitfires"
 		},
 	
-	"Nyjah":{
+{
 		
 			"Stance": "Goofy",
 			"Skateboard": "Element",
@@ -44,7 +44,7 @@
 			"Wheels": "Bones"
 		},
 	
-	"Leticia":{
+{
 		
 			"Stance": "Regular",
 			"Skateboard": "PlanB",
@@ -52,5 +52,5 @@
 			"Trucks": "Independent",
 			"Wheels": "Ojs"
 
-}}
-]
+}
+
