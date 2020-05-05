@@ -1,4 +1,5 @@
 from flask import Flask, redirect, flash, render_template, request, url_for
+from flask_pymongo import PyMongo
 import json
 
 
@@ -10,6 +11,7 @@ with open('static/skaters.json') as f:
 
 
 app = Flask(__name__)
+app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -47,7 +49,7 @@ def home():
 @app.route('/Search/', methods=['POST', 'GET'])
 def my_form_post():
 	if request.method == 'POST':
-		print request.form
+		print ("request form")
 		search = request.form['search']
 			
 		for  skater in data:
@@ -93,7 +95,7 @@ def results(stat):
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():
 	if request.method == 'POST':
-		print request.form
+		print ("request.form")
 		upload = request.form['upload']
 		with open('static/newSkaters.json', 'w') as G:
 			json.dump(request.form, G)
