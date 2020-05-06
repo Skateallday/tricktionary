@@ -12,10 +12,19 @@ with open('static/skaters.json') as f:
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
+mongo = PyMongo(app)
+
 
 @app.errorhandler(404)
 def page_not_found(error):
 	return render_template("404.html") 
+
+@app.route("/test")
+def home_page():
+    online_users = mongo.db.users.find({"online": True})
+    return render_template("mongo.html",
+        online_users=online_users)
+
 
 @app.route('/')
 def root():

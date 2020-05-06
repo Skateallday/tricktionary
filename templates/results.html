@@ -1,37 +1,5 @@
-<html>
-<head> 
-<title>Results</title>
-<link href="{{ url_for('static', filename="css/bootstrap.min.css") }}" rel="stylesheet"/>
-<style>
-	.thick-border{margin-left:-50;
-			border: 3px solid black;
-			border-collapse: collapse;
-			}
-	.thich-border, th, td {
-			padding: 10px;
-			border: 1px solid black;
-				}
-	body{
-		padding-top: 50px;
-	}
-</style>
-
-</head>
-<body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href={{ url_for ('home') }}>Trickionary</a>
-	</div>
-	<div id="navbar" class="collapse navbar-collapse">
-	<ul class="nav navbar-nav">
-		<li><a href={{ url_for ('home') }}>Home</a></li>
-		<li><a href={{ url_for ('about') }}>About</a></li>
-		<li><a href={{ url_for ('contact')}}>Contact</a></li>
-	</ul>
-	</div>
-</nav>
+{% extends "template.html" %}
+{% block content %}
 <div class="container">
 	<div class="row">
 
@@ -65,10 +33,7 @@
 			<img src="{{img_url}}">
 		</div>
 </div></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-</body>
-</html>
+{% endblock %}
 
 
 
