@@ -1,0 +1,37 @@
+.homepageHeader{
+    height:30vmax;
+    background-image: url('../images/designImages/headerBackground.jpg');
+    color:#fff;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+input.transparent-input{
+        background-color:transparent !important;
+        border:none !important;
+     
+ }
+.sections{
+    background:#3e6f6f;
+    color:#ce6d33;
+}
+
+.card{
+    border-color: #ba5c38;
+    margin:15px;
+}
+.card-body{
+    background:#ce6d33;
+    color:#3e6f6f;
+}
+
+.card-ia
+#searchBar{
+    margin-top:15vmax;
+    opacity: 0.7;
+}
+
+#footer{
+    background:#082a39;
+    color:#fff;
+}

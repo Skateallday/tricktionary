@@ -2,34 +2,48 @@
 {% block content %}
 <div class="container">
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-8">
 			<p><h1>Have we missed something out?</h1>
 			<p>We try our best to make sure all the information is up to date and that everyone is represented. If we've missed out on anything and you'd like to help us update our achieve please fill in this form with the skater's details and we'll updata the site. Thanks!</p>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-lg-8">
-			<div class="form-group">				
-			<form class="upload" action="/upload/" method="post">
-				<label for="skater_name">Skater Name:		 </label>
-				<input class="form-control"  id="skater_name" type="text" name="upload"><br>
-				<label for="skater_age">Skater Age:		 </label>
-				<input class="form-control"  id="skater_age" type="text" name="skater_age"><br>
-				<label for="skater_gender">Skater Sex:		 </label>
-				<select class="form-control"  id="skater_gender" type="text" name="skater_gender">
-					<option value="Male">Male</option>
-					<option value="Female">Female</option>
-				</select><br>
-				<label for="skater_board">Skaterboard Sponsor:	 </label>
-				<input class="form-control"  id="skater_board" type="text" name="skater_board"><br>
-				<label for="skater_shoes">Shoe Sponsor:		 </label>
-				<input class="form-control"  id="skater_shoe" type="text" name="skater_shoe"><br>
-				<label for="skater_truck">Truck Sponsor:	 </label>
-				<input class="form-control"  id="skater_truck" type="text" name="skater_trucl"><br>
-				<label for="skater_wheel">Wheel Sponsor:	 </label>
-				<input class="form-control"  id="skater_wheel" type="text" name="skater_wheel"><br>
-			<input class="btn btn-primary" type="Submit" value="Submit Skater">
-			</form>
+			<div class="form-group">	
+				<form method="POST"  enctype="multipart/form-data">
+					{{ form.hidden_tag() }} {{ form.csrf_token() }}
+	
+					<label for="skaterName">Group Name</label>
+					{% if request.method == 'POST' %} {% for error in form.skaterName.errors %}
+					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.skaterName(class="form-control") }}
+	
+					<label for="skaterAge">Group Details</label>
+					{% if request.method == 'POST' %} {% for error in form.skaterAge.errors %}
+					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.skaterAge(class="form-control") }}
+	
+					<label for="skaterSex">Group Type</label>
+					{% if request.method == 'POST' %} {% for error in form.skaterSex.errors %}
+					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.skaterSex(class="form-control") }}
+					
+					<label for="skateboardSponsor">Group Name</label>
+					{% if request.method == 'POST' %} {% for error in form.skateboardSponsor.errors %}
+					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.skateboardSponsor(class="form-control") }}
+	
+					<label for="shoeSponsor">Group Details</label>
+					{% if request.method == 'POST' %} {% for error in form.shoeSponsor.errors %}
+					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.shoeSponsor(class="form-control") }}
+	
+					<label for="truckSponsor">Group Type</label>
+					{% if request.method == 'POST' %} {% for error in form.truckSponsor.errors %}
+					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.truckSponsor(class="form-control") }}
+					
+					<label for="wheelSponsor">Wheel Sponsor</label>
+					{% if request.method == 'POST' %} {% for error in form.wheelSponsor.errors %}
+					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.wheelSponsor(class="form-control")}}
+					
+	
+					<p></p>{{ form.submit(class="btn btn-info") }}
+				</form>		
 </div>
 </div>
 	</div>

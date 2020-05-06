@@ -1,0 +1,97 @@
+
+{% extends "template.html" %}
+{% block content %}
+<div class="container-fluid homepageHeader">
+    <div class="row justify-content-center">
+        
+    </div>
+    <div id="searchBar" class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <h1>Tricktionary</h1>
+            <h2>The Skateboarder Directory</h2>
+            <form method='POST' action='/Search/' name='search' class="card card-sm">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control transparent-input form-control-lg form-control-borderless" name="search" type="search" placeholder="Search topics or keywords">
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn btn-info" type="submit">Search</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
+</div>
+<div class="container-fluid sections">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Skaters</h5>
+                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/Eric.jpg', alt="Eric Koston Pro Skater")}}>  
+                  <a href="#" class="btn btn-info">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Skateboards</h5>
+                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/boards.jpg', alt="Eric Koston Pro Skater")}}>  
+                  <a href="#" class="btn btn-info">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Shoes</h5>
+                    <img class="card-img-top" src={{url_for('static', filename='images/designImages/shoes.jpg', alt="Eric Koston Pro Skater")}}>  
+                    <a href="#" class="btn btn-info">Go somewhere</a>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Trucks</h5>
+                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/trucks.jpg', alt="Eric Koston Pro Skater")}}>  
+                  <a href="#" class="btn btn-info">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Wheels</h5>
+                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/wheels.jpg', alt="Eric Koston Pro Skater")}}>  
+                  <a href="#" class="btn btn-info">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Tricks</h5>
+                    <img class="card-img-top" src={{url_for('static', filename='images/designImages/tricks.jpg', alt="Eric Koston Pro Skater")}}>  
+                    <a href="#" class="btn btn-info">Go somewhere</a>
+                  </div>
+                </div>
+              </div>
+          </div>
+          
+        
+    </div>
+</div>
+{% endblock %}

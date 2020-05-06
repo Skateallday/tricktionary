@@ -1,5 +1,8 @@
 from flask import Flask, redirect, flash, render_template, request, url_for
 from flask_pymongo import PyMongo
+from forms.forms import newSkater
+from flask_wtf.csrf import CSRFProtect, CSRFError
+import os
 import json
 
 
@@ -13,7 +16,9 @@ with open('static/skaters.json') as f:
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
 mongo = PyMongo(app)
-
+csrf = CSRFProtect(app)
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -36,7 +41,7 @@ def root():
 	url4 = url_for('static', filename='Antwuan.png')
 	url5 = url_for('static', filename='Nyjah.png')
 
-	return render_template("Assignment.html", url1=url1, url=url, url2=url2, url3=url3, url4=url4, url5=url5)
+	return render_template("index.html", url1=url1, url=url, url2=url2, url3=url3, url4=url4, url5=url5)
 
 
 @app.route('/about/')
@@ -53,7 +58,7 @@ def home():
 	url4 = url_for('static', filename='Antwuan.png')
 	url5 = url_for('static', filename='Nyjah.png')
 
-	return render_template("Assignment.html", url1=url1, url=url, url2=url2, url3=url3, url4=url4, url5=url5)
+	return render_template("index.html", url1=url1, url=url, url2=url2, url3=url3, url4=url4, url5=url5)
 
 @app.route('/Search/', methods=['POST', 'GET'])
 def my_form_post():
@@ -74,9 +79,10 @@ def my_form_post():
 	
 		return render_template("Search.html", search=search, skater=skater)
 
-@app.route('/contact/')
+@app.route('/contact/', methods=['POST', 'GET'])
 def contact():
-	return render_template("contact.html")
+	form = newSkater(request.form)
+	return render_template("contact.html", form=form)
 
 
 @app.route('/brand/<string:stat>')
