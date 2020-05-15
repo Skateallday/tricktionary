@@ -3,6 +3,7 @@
 <title>Results</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="../static/css/styles.css">
+<link rel="stylesheet" href="../static/css/searchbar.css">
 <style>
 	.thick-border{margin-left:-50;
 			border: 3px solid black;
@@ -27,25 +28,40 @@
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href={{ url_for('about')}}>About</span></a>
-            </li>
+            
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href={{url_for('home')}} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Category
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Skaters</a>
-                  <a class="dropdown-item" href="#">Skateboards</a>
-                  <a class="dropdown-item" href="#">Shoes</a>
-                  <a class="dropdown-item" href="#">Trucks</a>
-                  <a class="dropdown-item" href="#">Wheels</a>
+                  <a class="dropdown-item" href={{url_for('lists', stat="skaters")}}>Skaters</a>
+                  <a class="dropdown-item" href={{url_for('lists', stat="skateboards")}} >Skateboards</a>
+                  <a class="dropdown-item" href={{url_for('lists', stat="shoes")}} >Shoes</a>
+                  <a class="dropdown-item" href={{url_for('lists', stat="trucks")}} >Trucks</a>
+                  <a class="dropdown-item" href={{url_for('lists', stat="wheels")}} >Wheels</a>
                 </div>
               </li>
               <a class="nav-link" href={{ url_for('contact')}}>Contact</a>
             </li>
           
           </ul>
+          
+          {% if loggedIn == 'yes' %}
+            <ul class="navbar-nav mr-auto">
+              <li><a class="btn btn-outline-primary" role="button" aria-pressed="true" href={{url_for('LogIn')}}>{{ username }}
+              </a>
+              </li>
+              <li><a class="btn btn-outline-danger" role="button" aria-pressed="true" href={{url_for('logout')}}>Logout</a>
+              </li>
+            </ul>
+          {% else %}
+          <ul class="navbar-nav mr-auto">
+            <li><a class="btn btn-outline-primary" role="button" aria-pressed="true" href={{url_for('LogIn')}}>Log in</a>
+            </li>
+            <li><a class="btn btn-outline-secondary" role="button" aria-pressed="true" href={{url_for('SignUp')}}>Sign Up</a>
+            </li>
+          </ul>
+          {% endif %}
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -69,5 +85,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../static/js/scrollOpacity.js"></script>
 </body>
 </html>

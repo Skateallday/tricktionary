@@ -6,14 +6,11 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-input.transparent-input{
-        background-color:transparent !important;
-        border:none !important;
-     
- }
+
 .sections{
     background:#3e6f6f;
-    color:#ce6d33;
+    color:#fff;
+    font-size:20px;
 }
 
 .card{
@@ -24,14 +21,19 @@ input.transparent-input{
     background:#ce6d33;
     color:#3e6f6f;
 }
-
-.card-ia
-#searchBar{
-    margin-top:15vmax;
-    opacity: 0.7;
+.card-img-top{
+margin-bottom:15px;
 }
+.leftcard{
+    height:30.5vmax;
+}
+
 
 #footer{
     background:#082a39;
     color:#fff;
+}
+
+.btn-outline-primary{
+    margin-right:15px;
 }

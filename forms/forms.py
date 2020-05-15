@@ -25,3 +25,22 @@ class newSkater(FlaskForm):
     truckSponsor = StringField('Truck Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
     wheelSponsor = StringField('Wheel  Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
     submit = SubmitField('Propose new skater')
+
+class search(FlaskForm):
+    search = StringField('Search', validators=[DataRequired(), Length(min=3, max=30)])
+
+class contactForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(min=3, max=30)])
+    emailAddress = StringField('Email', validators=[DataRequired(), Email()])
+    message = TextField('Write your message here...', validators=[DataRequired(), Length(min=20, max=250)])
+
+class loginForm(FlaskForm):
+    username = StringField('username', validators=[DataRequired(), Length(min=2, max=30)])
+    password = PasswordField('password', validators=[DataRequired(), Length(min=2, max=30)])
+    submit = SubmitField('login')
+
+class registration(FlaskForm):
+    username = StringField('username', validators=[DataRequired(), Length(min=2, max=30)])
+    password = PasswordField('password', validators=[DataRequired(), Length(min=2, max=30)])
+    emailAddress = StringField('Email Address', validators=[DataRequired(), Email()])
+    submit = SubmitField('Register')
