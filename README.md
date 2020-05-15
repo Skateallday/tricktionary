@@ -3,11 +3,11 @@ University
 # inglis_marc_set09103_cw1
 
 
-Restarting Project 5/52020
+Restarting Project 5/5/2020
 
 Plan: 
 
-Upgrade from JSON Files to database storage
-Allow Users to upload Skater for site recommendation 
-Add a working Search Function
-Launch on AWS
+<p>Upgrade from JSON Files to database storage</p>
+<p>Allow Users to upload Skater for site recommendation </p>
+<p>Add a working Search Function</p>
+<p>Launch on AWS</p>
