@@ -11,15 +11,23 @@
     background:#3e6f6f;
     color:#fff;
     font-size:20px;
+    height:90vmin;
+
 }
 
+.altsections{
+        background:#ce6d33;
+        color:#fff;
+    font-size: 20px;
+    height:90vmin;
+}
 .card{
     border-color: #ba5c38;
     margin:15px;
 }
 .card-body{
     background:#ce6d33;
-    color:#3e6f6f;
+    color:#fff;
 }
 .card-img-top{
 margin-bottom:15px;
@@ -34,6 +42,6 @@ margin-bottom:15px;
     color:#fff;
 }
 
-.btn-outline-primary{
+.btn-outline-info, .btn-outline-primary, .btn-outline-success{
     margin-right:15px;
 }

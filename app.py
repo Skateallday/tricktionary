@@ -76,7 +76,11 @@ def my_form_post():
 def contact():
 	form = newSkater(request.form)
 	contactform = contactForm(request.form)
-	return render_template("contact.html", form=form, contactForm=contactform)
+	if g.username:
+		return render_template("contact.html", loggedIn= "yes", username=g.username, form=form, contactForm=contactform)
+
+	else:
+		return render_template("contact.html", form=form, contactForm=contactform)
 
 
 @app.route('/brand/<string:stat>')
@@ -89,8 +93,11 @@ def brand(stat):
 
 @app.route('/list/<stat>')
 def lists(stat):
+	if g.username:
+		return render_template("results.html", loggedIn= "yes", username=g.username)
 
-	return render_template("results.html")
+	else:
+		return render_template("results.html")
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():
@@ -103,27 +110,31 @@ def upload():
 
 @app.route('/Login/', methods=['GET', 'POST'])
 def LogIn():
-        form = loginForm(request.form)       
-        if request.method == 'POST':  
-                conn = sqlite3.connect('library.db')                
-                with conn:
-                        c = conn.cursor()
-                        try:
-                                find_user = ("SELECT * FROM users WHERE username = ?")
-                                c.execute(find_user, [(form.username.data)])
-                                results =c.fetchall()                        
-                                userResults = results[0]
-                                if bcrypt.check_password_hash(userResults[1],(form.password.data)):
-                                        session['username'] = (form.username.data)
-                                        return redirect(url_for('home'))
-                                else:
-                                        flash('Either username or password was not recognised')
-                                        return render_template('login.html', form=form)   
-                        except Exception as e:print(e)
+		if g.username:
+			return redirect('home')
 
-                        flash('Either username or password was not recognised')
-                        return render_template('login.html', form=form)                                 
-        return render_template("login.html", form=form) 
+		else:
+			form = loginForm(request.form)       
+			if request.method == 'POST':  
+					conn = sqlite3.connect('library.db')                
+					with conn:
+							c = conn.cursor()
+							try:
+									find_user = ("SELECT * FROM users WHERE username = ?")
+									c.execute(find_user, [(form.username.data)])
+									results =c.fetchall()                        
+									userResults = results[0]
+									if bcrypt.check_password_hash(userResults[1],(form.password.data)):
+											session['username'] = (form.username.data)
+											return redirect(url_for('home'))
+									else:
+											flash('Either username or password was not recognised')
+											return render_template('login.html', form=form)   
+							except Exception as e:print(e)
+
+							flash('Either username or password was not recognised')
+							return render_template('login.html', form=form)                                 
+			return render_template("login.html", form=form) 
 
 @app.route("/logout")
 def logout():        
@@ -162,6 +173,43 @@ def SignUp():
                                 return redirect('account')                                
                         return render_template("signup.html", form=registerForm)
                 return render_template('signup.html', form=registerForm)
+
+       
+@app.route("/profile", methods=['GET', 'POST'])
+def profile():      
+        if g.username:
+                conn =sqlite3.connect('library.db')
+                print ("Opened database successfully")
+                c = conn.cursor()
+
+                c.execute('SELECT * FROM users WHERE username LIKE (?)', (g.username, ))
+                results = c.fetchall()
+                print(results) 
+                    
+                return render_template("profile.html", loggedIn="yes", username=g.username)                
+                
+        else:
+                flash('Please Login to continue')
+                return redirect('Login')
 		 
+@app.route("/adminPanel", methods=['GET', 'POST'])
+def admin():
+	if g.username:
+		conn =sqlite3.connect('library.db')
+		c = conn.cursor()
+		c.execute('SELECT * FROM users WHERE username LIKE (?)', (g.username, ))
+		admin = c.fetchall()
+		for results in admin:
+			print(results[3]) 
+			if str(results[3]) == "Yes":
+				return render_template("adminPanel.html")
+			else:
+				flash("You do not have admin rights to access this page")
+				return redirect("home")
+		flash("You do not have admin rights to access this page")
+		return redirect("home")
+	else:
+		flash('Please log in to continue')
+		return redirect('Login')
 if __name__ == "__main__":
 	app.run(host="0.0.0.0", debug=True)

@@ -48,7 +48,7 @@
           
           {% if loggedIn == 'yes' %}
             <ul class="navbar-nav mr-auto">
-              <li><a class="btn btn-outline-primary" role="button" aria-pressed="true" href={{url_for('LogIn')}}>{{ username }}
+              <li><a class="btn btn-outline-success" role="button" aria-pressed="true" href={{url_for('profile')}}>{{ username }}
               </a>
               </li>
               <li><a class="btn btn-outline-danger" role="button" aria-pressed="true" href={{url_for('logout')}}>Logout</a>
@@ -56,15 +56,15 @@
             </ul>
           {% else %}
           <ul class="navbar-nav mr-auto">
-            <li><a class="btn btn-outline-primary" role="button" aria-pressed="true" href={{url_for('LogIn')}}>Log in</a>
+            <li><a class="btn btn-outline-info" role="button" aria-pressed="true" href={{url_for('LogIn')}}>Log in</a>
             </li>
-            <li><a class="btn btn-outline-secondary" role="button" aria-pressed="true" href={{url_for('SignUp')}}>Sign Up</a>
+            <li><a class="btn btn-outline-warning" role="button" aria-pressed="true" href={{url_for('SignUp')}}>Sign Up</a>
             </li>
           </ul>
           {% endif %}
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
 </nav>
