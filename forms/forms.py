@@ -17,13 +17,14 @@ from wtforms.validators import NumberRange
 
 
 class newSkater(FlaskForm):
-    skaterName = StringField('Skater Name', validators=[DataRequired(), Length(min=2, max=30)])
-    skaterAge = IntegerField('Age', validators=[DataRequired(), Length(min=2, max=30)])
-    skaterSex = SelectField('Sex', choices=[('Male', 'Male'), ('Female', 'Female')])
-    skateboardSponsor = StringField('Skateboard Company', validators=[DataRequired(), Length(min=2, max=30)])
-    shoeSponsor = StringField('Shoe Sponsor', validators=(DataRequired(), Length(min=2, max=30)))
-    truckSponsor = StringField('Truck Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
-    wheelSponsor = StringField('Wheel  Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
+    name = StringField('Skater Name', validators=[DataRequired(), Length(min=2, max=30)])
+    DOB = StringField('Age', validators=[DataRequired(), Length(min=2, max=30)])
+    nationality = StringField('Nationality', validators=[DataRequired(), Length(min=2, max=30)])
+    gender = SelectField('Sex', choices=[('Male', 'Male'), ('Female', 'Female')])
+    skateboard = StringField('Skateboard Company', validators=[DataRequired(), Length(min=2, max=30)])
+    shoes = StringField('Shoe Sponsor', validators=(DataRequired(), Length(min=2, max=30)))
+    trucks = StringField('Truck Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
+    wheels = StringField('Wheel  Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
     submit = SubmitField('Propose new skater')
 
 class search(FlaskForm):

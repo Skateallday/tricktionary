@@ -1,6 +1,7 @@
 from flask import Flask, redirect, flash, render_template, request, url_for, session, g
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 from flask_pymongo import PyMongo
+from models import whoIs, sessionCheck
 from forms.forms import newSkater, search, loginForm, contactForm, registration
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
@@ -11,9 +12,6 @@ import sqlite3
 
 data=[]
 	
-with open('static/skaters.json') as f:
-	data = json.load(f)
-	f.close()
 
 
 app = Flask(__name__)
@@ -202,7 +200,7 @@ def admin():
 		for results in admin:
 			print(results[3]) 
 			if str(results[3]) == "Yes":
-				return render_template("adminPanel.html")
+				return render_template("adminPanel.html", loggedIn= "yes", username=g.username)
 			else:
 				flash("You do not have admin rights to access this page")
 				return redirect("home")
@@ -211,5 +209,31 @@ def admin():
 	else:
 		flash('Please log in to continue')
 		return redirect('Login')
+
+@app.route("/adminRecords", methods=['POST', 'GET'])
+def adminRecords():
+	form = newSkater(request.form)       
+	conn = sqlite3.connect('library.db')
+	print ("Library data opened")
+	c = conn.cursor()
+	c.execute('SELECT * from skaters')
+	results = c.fetchall()
+	print(results)
+	for data in results:
+		return render_template("adminRecords.html", loggedIn= "yes", username=g.username, form=form, data=data)
+	if request.method == 'POST':
+		
+		enterSkater = [((form.name.data), (form.DOB.data), (form.nationality.data), (form.gender.data), (form.skateboard.data), (form.wheels.data ), (form.shoes.data), (form.trucks.data))]
+		with conn:
+			try:
+				insertPost = '''INSERT INTO skaters (name, DOB, nationality, gender, skateboard, wheels, shoes, trucks) VALUES(?,?,?,?,?,?,?,?)'''
+				c.executemany(insertPost, enterSkater)
+				print ("Insert correctly")
+			except Exception as e: print(e)                                                        
+		flash(" Successfully Posted!!")
+	
+	return render_template("adminRecords.html", loggedIn= "yes", username=g.username, form=form)
+
+
 if __name__ == "__main__":
 	app.run(host="0.0.0.0", debug=True)

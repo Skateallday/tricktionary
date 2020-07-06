@@ -1,18 +1,20 @@
+
 {% extends "template.html" %}
 {% block content %}
+
 <div class="container-fluid sections">
-	<div class="container ">
-	   <div class="row">
-		  <div class="col-lg-8">
-			 
-			 <h1>Have we missed something out?</h1>
-			 <p>We try our best to make sure all the information is up to date and that everyone is represented. If we've missed out on anything and you'd like to help us update our achieve please fill in this form with the skater's details and we'll updata the site. Thanks!</p>
-		  </div>
-	   </div>
-	   <div class="row">
-		  <div class="col-lg-8">
-			 <div class="form-group">
-				<form method="POST"  enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+			<div class="col-lg-12">
+                <h2>Current records</h2>
+                <p>{{data[0]}} {{data[1]}} {{data[2]}} {{data[3]}} {{data[4]}} {{data[5]}} {{data[6]}} {{data[7]}}</p>
+
+			</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Add new</h2>
+                <form method="POST"  enctype="multipart/form-data">
                     {{ form.hidden_tag() }} {{ form.csrf_token() }}
                     <label for="skaterName">Skater Name</label>
                     {% if request.method == 'POST' %} {% for error in form.name.errors %}
@@ -48,39 +50,12 @@
                     <p></p>
                     {{ form.submit(class="btn btn-info") }}
                  </form>
-			 </div>
-		  </div>
-	   </div>
-	</div>
-	<div class="container ">
-		<div class="row">
-		   <div class="col-lg-8">
-			  
-			  <h1>Do you need to contact us?</h1>
-			  <p>For any other enquries, just fill out the contact form below and we'll reply as soon as possible.</p>
-		   </div>
-		</div>
-		<div class="row">
-		   <div class="col-lg-8">
-			  <div class="form-group">
-				 <form method="POST"  enctype="multipart/form-data">
-					{{ form.hidden_tag() }} {{ form.csrf_token() }}
-					<label for="Name"> Name</label>
-					{% if request.method == 'POST' %} {% for error in contactForm.name.errors %}
-					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ contactForm.name(class="form-control") }}
-					<label for="Email">Email Address</label>
-					{% if request.method == 'POST' %} {% for error in contactForm.emailAddress.errors %}
-					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ contactForm.emailAddress(class="form-control") }}
-					<label for="Message">Message</label>
-					{% if request.method == 'POST' %} {% for error in contactForm.message.errors%}
-					
-					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ contactForm.message(class="form-control")}}
-<p></p>
-					{{ form.submit(class="btn btn-info") }}
-				 </form>
-			  </div>
-		   </div>
-		</div>
-	 </div>
- </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 {% endblock %}
