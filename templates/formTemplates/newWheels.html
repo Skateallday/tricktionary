@@ -5,6 +5,8 @@
     <div class="col-lg-8">
      <div class="form-group">
          <form method="POST"  enctype="multipart/form-data">
+            {{ form.hidden_tag() }} {{ form.csrf_token() }}
+
              <label for="skaterName">Wheel Name</label>
              {% if request.method == 'POST' %} {% for error in form.name.errors %}
              <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.name(class="form-control") }}

@@ -6,6 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
 from wtforms.fields.html5 import DateField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
+from flask_wtf.csrf import CSRFProtect, CSRFError
 
 
 class newSkater(FlaskForm):

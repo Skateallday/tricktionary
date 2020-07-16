@@ -82,20 +82,59 @@ def formTemplate(selectForm):
 	print(selectForm)
 	if selectForm == 'newSkater':
 		form = newSkater(request.form)
+		table = "skaters"
+		formData = [form.name.data, form.DOB.data, form.nationality.data, form.gender.data, form.skateboard.data, form.wheels.data, form.shoes.data, form.trucks.data]
+		record = '''INSERT INTO ''' + table + ''' (name, DOB, nationality, gender, skateboard, wheels, shoes, trucks) VALUES (?,?,?,?,?,?,?,?);'''
+
 	elif selectForm =='newSkateboard':
 		form =newSkateboards(request.form)
+		table = "skateboards"
+		formData = [form.name.data, form.est.data, form.nationality.data]
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+
 	elif selectForm =='newWheels':
 		form =newWheels(request.form)	
+		table = "wheels"
+		formData = [form.name.data, form.est.data, form.nationality.data]
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+
+
 	elif selectForm =='newTricks':
-		form =newTricks(request.form)	
+		form =newTricks(request.form)
+		table = "tricks"
+		formData = [form.name.data, form.creator.data, form.difficulty.data]
+		record = '''INSERT INTO ''' + table + ''' (name, creator, difficulty) VALUES (?,?,?);'''
+	
 	elif selectForm =='newTrucks':
 		form =newTrucks(request.form)	
+		table = "trucks"
+		formData = [form.name.data, form.est.data, form.nationality.data]
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+
 	else:
 		form =newShoes(request.form)
+		table = "shoes"
+		formData = [form.name.data, form.est.data, form.nationality.data]
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+
+	if request.method == 'POST':
+				conn = sqlite3.connect('library.db')                
+				with conn:
+						c = conn.cursor()
+						try:	
+								print(record)  
+								print(formData)
+								c.executemany(record, [formData])
+								print("Successful!")						
+						except Exception as e: print(e)
+						flash(" Successfully Posted!!")
+
 	if g.username:		
-				return render_template("formTemplates/"+str(selectForm)+".html", loggedIn= "yes", username=g.username, form=form)
+		return render_template("formTemplates/"+str(selectForm)+".html", loggedIn= "yes", username=g.username, form=form)
 	else:
-		return render_template("formTemplates/"+str(selectForm)+".html", form=form)
+		return render_template("formTemplates/"+str(selectForm)+".html", form=form)				
+								
+								
 
 
 
