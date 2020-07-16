@@ -16,19 +16,12 @@ from flask import session
 from wtforms.validators import NumberRange
 
 
-class newSkater(FlaskForm):
-    name = StringField('Skater Name', validators=[DataRequired(), Length(min=2, max=30)])
-    DOB = StringField('Age', validators=[DataRequired(), Length(min=2, max=30)])
-    nationality = StringField('Nationality', validators=[DataRequired(), Length(min=2, max=30)])
-    gender = SelectField('Sex', choices=[('Male', 'Male'), ('Female', 'Female')])
-    skateboard = StringField('Skateboard Company', validators=[DataRequired(), Length(min=2, max=30)])
-    shoes = StringField('Shoe Sponsor', validators=(DataRequired(), Length(min=2, max=30)))
-    trucks = StringField('Truck Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
-    wheels = StringField('Wheel  Sponsor', validators=[DataRequired(), Length(min=2, max=30)])
-    submit = SubmitField('Propose new skater')
-
 class search(FlaskForm):
     search = StringField('Search', validators=[DataRequired(), Length(min=3, max=30)])
+
+
+class recordSelection(FlaskForm):
+    recordSelection = SelectField('Select Item', choices=[('Skater','Skater'), ('Skateboards','Skateboards'), ('Shoes','Shoes'), ('Trucks','Trucks'), ('Wheels','Wheels'), ('Tricks','Tricks')])
 
 class contactForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=3, max=30)])

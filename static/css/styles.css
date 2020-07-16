@@ -11,13 +11,11 @@
     background:#3e6f6f;
     color:#fff;
     font-size:20px;
-    height:90vmin;
-
 }
 
 .altsections{
-        background:#ce6d33;
-        color:#fff;
+    background:#ce6d33;
+    color:#fff;
     font-size: 20px;
     height:90vmin;
 }
@@ -30,12 +28,11 @@
     color:#fff;
 }
 .card-img-top{
-margin-bottom:15px;
+    margin-bottom:15px;
 }
 .leftcard{
     height:30.5vmax;
 }
-
 
 #footer{
     background:#082a39;

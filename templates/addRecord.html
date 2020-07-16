@@ -1,0 +1,49 @@
+{% extends "template.html" %}
+{% block content %}
+<div class="container-fluid sections">
+	<div class="container ">
+	   <div class="row">
+		  <div class="col-lg-8">
+			 
+			 <h1>Have we missed something out?</h1>
+			 <p>We try our best to make sure all the information is up to date and that everyone is represented. If we've missed out on anything and you'd like to help us update our achieve please fill in this form with the skater's details and we'll updata the site. Thanks!</p>
+		  </div>
+       </div>
+       <div class="row">
+           <div class="col-lg-8">
+            <ul class="nav nav-pills nav-justified">
+                <li class="nav-item ">
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newSkater")}}>Skater</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newSkateboard")}}>Skateboards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newWheels")}}>Wheels</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newShoes")}}>Shoes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newTricks")}}>Tricks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newTrucks")}}>Trucks</a>
+                </li>
+            </ul>
+           </div>
+       </div>
+
+	   <div class="row">
+		  <div class="col-lg-8">
+
+            {% block choosenForm %}
+
+            {% endblock %}
+
+		  </div>
+	   </div>
+    </div>
+    
+ </div>
+ {% endblock %}

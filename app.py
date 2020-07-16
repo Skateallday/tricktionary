@@ -2,7 +2,9 @@ from flask import Flask, redirect, flash, render_template, request, url_for, ses
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 from flask_pymongo import PyMongo
 from models import whoIs, sessionCheck
-from forms.forms import newSkater, search, loginForm, contactForm, registration
+from forms.forms import search, loginForm, contactForm, registration, recordSelection
+from forms.addRecords import newSkater, newSkateboards, newShoes, newTricks, newTrucks, newWheels
+
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
 import json
@@ -11,8 +13,6 @@ import sqlite3
 
 
 data=[]
-	
-
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
@@ -49,8 +49,6 @@ def home():
 		return render_template("index.html")
 
 
-
-
 @app.route('/Search/', methods=['POST', 'GET'])
 def my_form_post():
 	if request.method == 'POST':
@@ -70,15 +68,45 @@ def my_form_post():
 	
 		return render_template("Search.html", search=search, skater=skater)
 
+
+
+@app.route('/addRecord', methods=['POST', 'GET'])
+def addRecord():
+	if g.username:		
+				return render_template("addRecord.html", loggedIn= "yes", username=g.username)
+	else:
+		return render_template("addRecord.html")
+
+@app.route('/formTemplate/<selectForm>', methods=['POST', 'GET'])
+def formTemplate(selectForm):
+	print(selectForm)
+	if selectForm == 'newSkater':
+		form = newSkater(request.form)
+	elif selectForm =='newSkateboard':
+		form =newSkateboards(request.form)
+	elif selectForm =='newWheels':
+		form =newWheels(request.form)	
+	elif selectForm =='newTricks':
+		form =newTricks(request.form)	
+	elif selectForm =='newTrucks':
+		form =newTrucks(request.form)	
+	else:
+		form =newShoes(request.form)
+	if g.username:		
+				return render_template("formTemplates/"+str(selectForm)+".html", loggedIn= "yes", username=g.username, form=form)
+	else:
+		return render_template("formTemplates/"+str(selectForm)+".html", form=form)
+
+
+
 @app.route('/contact/', methods=['POST', 'GET'])
 def contact():
-	form = newSkater(request.form)
 	contactform = contactForm(request.form)
 	if g.username:
-		return render_template("contact.html", loggedIn= "yes", username=g.username, form=form, contactForm=contactform)
+		return render_template("contact.html", loggedIn= "yes", username=g.username, contactForm=contactform)
 
 	else:
-		return render_template("contact.html", form=form, contactForm=contactform)
+		return render_template("contact.html",  contactForm=contactform)
 
 
 @app.route('/brand/<string:stat>')
@@ -89,13 +117,13 @@ def brand(stat):
 	img_url = url_for('static', filename= stat+'.jpg')
 	return render_template("brand.html", img_url=img_url, txt_url=content, stat=stat)
 
-@app.route('/list/<stat>')
-def lists(stat):
+@app.route('/list/<string:category>')
+def lists(category):
 	if g.username:
-		return render_template("results.html", loggedIn= "yes", username=g.username)
+		return render_template("results.html", category=category, loggedIn= "yes", username=g.username)
 
 	else:
-		return render_template("results.html")
+		return render_template("results.html", category=category)
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():

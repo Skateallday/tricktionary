@@ -1,0 +1,27 @@
+{% extends "addRecord.html" %}
+{% block choosenForm %}
+
+<div class="row">
+    <div class="col-lg-8">
+     <div class="form-group">
+         <form method="POST"  enctype="multipart/form-data">
+             <label for="skaterName">Trick Name</label>
+             {% if request.method == 'POST' %} {% for error in form.name.errors %}
+             <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.name(class="form-control") }}
+     
+             <label for="Creator">Creator</label>
+             {% if request.method == 'POST' %} {% for error in form.creator.errors %}
+             <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.creator(class="form-control") }}
+
+             <label for="difficulty">Difficulty</label>
+             {% if request.method == 'POST' %} {% for error in form.difficulty.errors %}
+             <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.difficulty(class="form-control") }}
+     
+             <p></p>
+             {{ form.submit(class="btn btn-info") }}
+          </form>
+      </div>
+    </div>
+</div>
+
+ {% endblock %}

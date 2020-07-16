@@ -34,13 +34,15 @@
                   Category
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href={{url_for('lists', stat="skaters")}}>Skaters</a>
-                  <a class="dropdown-item" href={{url_for('lists', stat="skateboards")}} >Skateboards</a>
-                  <a class="dropdown-item" href={{url_for('lists', stat="shoes")}} >Shoes</a>
-                  <a class="dropdown-item" href={{url_for('lists', stat="trucks")}} >Trucks</a>
-                  <a class="dropdown-item" href={{url_for('lists', stat="wheels")}} >Wheels</a>
+                  <a class="dropdown-item" href={{url_for('lists', category="Skaters")}}>Skaters</a>
+                  <a class="dropdown-item" href={{url_for('lists', category="Skateboards")}} >Skateboards</a>
+                  <a class="dropdown-item" href={{url_for('lists', category="Shoes")}} >Shoes</a>
+                  <a class="dropdown-item" href={{url_for('lists', category="Trucks")}} >Trucks</a>
+                  <a class="dropdown-item" href={{url_for('lists', category="Wheels")}} >Wheels</a>
                 </div>
               </li>
+              <a class="nav-link" href={{ url_for('addRecord')}}>Add Record</a>
+
               <a class="nav-link" href={{ url_for('contact')}}>Contact</a>
             </li>
           
