@@ -1,6 +1,5 @@
 from flask import Flask, redirect, flash, render_template, request, url_for, session, g
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
-from flask_pymongo import PyMongo
 from models import whoIs, sessionCheck
 from forms.forms import search, loginForm, contactForm, registration, recordSelection
 from forms.addRecords import newSkater, newSkateboards, newShoes, newTricks, newTrucks, newWheels
@@ -17,7 +16,6 @@ data=[]
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
 bcrypt = Bcrypt(app)
-mongo = PyMongo(app)
 csrf = CSRFProtect(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -31,13 +29,6 @@ def before_request():
         g.username = None
         if 'username' in session:
                 g.username = session['username']
-
-@app.route("/test")
-def home_page():
-    online_users = mongo.db.users.find({"online": True})
-    return render_template("mongo.html",
-        online_users=online_users)
-
 
 @app.route('/')
 @app.route('/home')
@@ -77,9 +68,16 @@ def addRecord():
 	else:
 		return render_template("addRecord.html")
 
+
+#####################################################################
+#																	#
+#  MOVE CODE BELOW INTO A NEW FILE TO MAKE PROJECT MORE MODULAR 	#
+#																	#
+#####################################################################
+
+
 @app.route('/formTemplate/<selectForm>', methods=['POST', 'GET'])
 def formTemplate(selectForm):
-	print(selectForm)
 	if selectForm == 'newSkater':
 		form = newSkater(request.form)
 		table = "skaters"
@@ -122,8 +120,6 @@ def formTemplate(selectForm):
 				with conn:
 						c = conn.cursor()
 						try:	
-								print(record)  
-								print(formData)
 								c.executemany(record, [formData])
 								print("Successful!")						
 						except Exception as e: print(e)
@@ -135,7 +131,11 @@ def formTemplate(selectForm):
 		return render_template("formTemplates/"+str(selectForm)+".html", form=form)				
 								
 								
-
+#####################################################################
+#																	#
+#  						END OF SECTION								#
+#																	#
+#####################################################################
 
 
 @app.route('/contact/', methods=['POST', 'GET'])
@@ -156,13 +156,28 @@ def brand(stat):
 	img_url = url_for('static', filename= stat+'.jpg')
 	return render_template("brand.html", img_url=img_url, txt_url=content, stat=stat)
 
-@app.route('/list/<string:category>')
+@app.route('/list/<string:category>', methods=['POST', 'GET'])
 def lists(category):
+	if request.method == 'GET':
+				conn = sqlite3.connect('library.db')                
+				with conn:
+						c = conn.cursor()
+						try:	
+
+								findCategory = ("SELECT * FROM " + category +" ")
+								c.execute(findCategory)
+								results =c.fetchall()   
+								for result in results:
+									print(results)
+									print(result)						
+						except Exception as e: print(e)
+						flash(" Successfully Posted!!")
+
 	if g.username:
-		return render_template("results.html", category=category, loggedIn= "yes", username=g.username)
+		return render_template("results.html", category=category, result=result, loggedIn= "yes", username=g.username)
 
 	else:
-		return render_template("results.html", category=category)
+		return render_template("results.html", results=results, category=category)
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():

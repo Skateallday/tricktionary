@@ -6,7 +6,21 @@
 		<div class="col-lg-12">
 			<h2>{{ category }}</h2>
 		</div>
-	</div>
+	</div>			{% for r in results %}
+
+	<div class="row">
+		<div class="col-lg-12">
+			{{ r[0] }}
+			{{ r[1] }}
+			{{ r[2] }}
+			{{ r[3] }}
+			{{ r[4] }}
+			{{ r[5] }}
+			{{ r[6] }}
+			{{ r[7] }}
+		</div>
+	</div>			{% endfor %}
+
 </div>
 
 {% endblock %}
