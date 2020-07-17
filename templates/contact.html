@@ -1,16 +1,13 @@
 {% extends "template.html" %}
 {% block content %}
-<div class="container-fluid sections">
+
+<div class="container-fluid altsections">
 	<div class="container ">
 		<div class="row">
 		   <div class="col-lg-8">
 			  
 			  <h1>Do you need to contact us?</h1>
 			  <p>For any other enquries, just fill out the contact form below and we'll reply as soon as possible.</p>
-		   </div>
-		</div>
-		<div class="row">
-		   <div class="col-lg-8">
 			  <div class="form-group">
 				 <form method="POST"  enctype="multipart/form-data">
 					{{ contactForm.hidden_tag() }} {{ contactForm.csrf_token() }}
@@ -24,12 +21,16 @@
 					{% if request.method == 'POST' %} {% for error in contactForm.message.errors%}
 					
 					<span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ contactForm.message(class="form-control")}}
-<p></p>
+					<br>
 					{{ contactForm.submit(class="btn btn-info") }}
 				 </form>
 			  </div>
 		   </div>
+		   <div class="col-lg-4">
+			   <img class="responImgs" src={{url_for('static', filename='images/contactImage.jpg')}}  alt="Jacques Benazra skate image">
+		   </div>
 		</div>
 	 </div>
  </div>
+
 {% endblock %}

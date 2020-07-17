@@ -14,17 +14,16 @@
 }
 
 .altsections{
-    background:#ce6d33;
+    padding-top:6vmax;
+    padding-bottom:6vmax;
+
+    background:#405D7D;
     color:#fff;
     font-size: 20px;
-    height:90vmin;
-}
-.card{
-    border-color: #ba5c38;
-    margin:15px;
 }
 .card-body{
-    background:#ce6d33;
+    margin-bottom:30px;
+    background:#405D7D;
     color:#fff;
 }
 .card-img-top{
@@ -41,4 +40,24 @@
 
 .btn-outline-info, .btn-outline-primary, .btn-outline-success{
     margin-right:15px;
+}
+
+.nav-pills{
+    background-color: #082a39;
+    border-radius: 15px;
+    margin:15px;
+}
+
+.responImgs{
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
+}
+
+.nav-pills a{
+    color:#fff;
+}
+
+header{
+    margin-bottom:50px;
 }

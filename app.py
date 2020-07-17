@@ -116,7 +116,7 @@ def formTemplate(selectForm):
 		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
 
 	if request.method == 'POST':
-				conn = sqlite3.connect('library.db')                
+				conn = sqlite3.connect('tempLibrary.db')                
 				with conn:
 						c = conn.cursor()
 						try:	
@@ -147,17 +147,12 @@ def contact():
 	else:
 		return render_template("contact.html",  contactForm=contactform)
 
-
-@app.route('/brand/<string:stat>')
-def brand(stat):
-	txt_url=open('static/' + stat + '.txt') 
-	content = txt_url.read()
-	txt_url.close()
-	img_url = url_for('static', filename= stat+'.jpg')
-	return render_template("brand.html", img_url=img_url, txt_url=content, stat=stat)
-
 @app.route('/list/<string:category>', methods=['POST', 'GET'])
 def lists(category):
+	txt_url=open('static/text/' + category + '.txt') 
+	content = txt_url.read()
+	print(content)
+	txt_url.close()
 	if request.method == 'GET':
 				conn = sqlite3.connect('library.db')                
 				with conn:
@@ -171,13 +166,12 @@ def lists(category):
 									print(results)
 									print(result)						
 						except Exception as e: print(e)
-						flash(" Successfully Posted!!")
 
 	if g.username:
-		return render_template("results.html", category=category, result=result, loggedIn= "yes", username=g.username)
+		return render_template("results.html", category=category, content=content, results=results, loggedIn= "yes", username=g.username)
 
 	else:
-		return render_template("results.html", results=results, category=category)
+		return render_template("results.html", results=results, content=content, category=category)
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():
@@ -315,6 +309,32 @@ def adminRecords():
 		flash(" Successfully Posted!!")
 	
 	return render_template("adminRecords.html", loggedIn= "yes", username=g.username, form=form)
+
+@app.route("/userRecords", methods=['POST', 'GET'])
+def userRecords():
+	conn = sqlite3.connect('tempLibrary.db')
+	c = conn.cursor()
+	c.execute('SELECT * from wheels')
+	results = c.fetchall()
+	print(results)
+	for data in results:
+		return render_template("userRecords.html", loggedIn= "yes", username=g.username, results=results)
+		
+	return render_template("userRecords.html", loggedIn= "yes", username=g.username)
+
+@app.route("/approve/<approveId>", methods=['POST', 'GET'])
+def approve(approveId):
+	connTemp = sqlite3.connect('tempLibrary.db')
+	cTemp = connTemp.curor()
+	conn =sqlite3.connect('library.db')
+	c = conn.cursor()
+	c.execute('SELECT * from wheels')
+	results = c.fetchall()
+	print(results)
+	for data in results:
+		return render_template("userRecords.html", loggedIn= "yes", username=g.username, results=results)
+		
+	return render_template("userRecords.html", loggedIn= "yes", username=g.username)
 
 
 if __name__ == "__main__":

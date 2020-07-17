@@ -1,0 +1,70 @@
+{% extends "template.html" %}
+{% block content %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2>{{ category }}</h2>
+			</div>
+		</div>		<div class="row">
+            <div class="col-lg-2">	
+                Name				
+            </div>				
+            <div class="col-lg-1">					
+                DOB/EST
+            </div>
+            <div class="col-lg-3">		
+                Country			
+            </div>
+            <div class="col-lg-1">					
+            </div>
+            <div class="col-lg-1">					
+            </div>
+            <div class="col-lg-1">					
+            </div>
+            <div class="col-lg-1">					
+            </div>
+            <div class="col-lg-1">                    
+            </div>
+            <div class="col-lg-1">
+                Approve?
+            </div>
+        </div>
+			
+		{% for r in results %}	
+			<div class="row">
+                <div class="col-lg-2">					
+                    {{ r[0] }}
+                </div>				
+                <div class="col-lg-1">					
+                    {{ r[1] }}
+                </div>
+				<div class="col-lg-3">					
+                    {{ r[2] }}
+                </div>
+				<div class="col-lg-1">					
+                    {{ r[3] }}
+                </div>
+				<div class="col-lg-1">					
+                    {{ r[4] }}
+                </div>
+				<div class="col-lg-1">					
+                    {{ r[5] }}
+                </div>
+				<div class="col-lg-1">					
+                    {{ r[6] }}
+                </div>
+				<div class="col-lg-1">                    
+                    {{ r[7] }}
+                </div>
+                <div class="col-lg-1">
+                    <a class="btn btn-success" href={{url_for('approve', approveId=r[0])}}>Approve Record</a>
+                </div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}
+
+
+
