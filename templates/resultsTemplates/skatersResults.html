@@ -1,0 +1,70 @@
+{% extends "results.html" %}
+{% block choosenResults %}
+
+<div class="row">
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-2">
+<h3>Skater</h3>
+    </div>
+    <div class="col-lg-1">
+<h3>DOB</h3>
+    </div>
+    <div class="col-lg-2">
+ <h3>Nationality</h3>
+    </div>
+    <div class="col-lg-1">
+<h3>Gender</h3>
+    </div>
+    <div class="col-lg-2">
+<h3>Skateboard</h3>
+    </div>
+    <div class="col-lg-1">
+<h3>Wheels</h3>
+    </div>
+    <div class="col-lg-1">
+  <h3>Shoes</h3>  </div>
+    <div class="col-lg-1">
+  <h3>Trucks</h3>  </div>
+</div>		
+		{% for r in results %}	
+        <div class="row">
+            <div class="col-lg-1">
+            <img class="responImgs" src={{url_for('static', filename='images/uploads/'+r[8])}}	{{ r[8] }}>
+
+            </div>
+            <div class="col-lg-2">
+                {{ r[0] }}
+
+            </div>
+            <div class="col-lg-1">
+                {{ r[1] }}
+
+            </div>
+            <div class="col-lg-2">
+                {{ r[2] }}
+
+            </div>
+            <div class="col-lg-1">
+                {{ r[3] }}
+
+            </div>
+            <div class="col-lg-2">
+                {{ r[4] }}
+
+            </div>
+            <div class="col-lg-1">
+                {{ r[5] }}
+
+            </div>
+            <div class="col-lg-1">
+                {{ r[6] }}
+            </div>
+            <div class="col-lg-1">
+                {{r[7]}}
+            </div>
+        </div>			
+    {% endfor %}
+
+{% endblock %}

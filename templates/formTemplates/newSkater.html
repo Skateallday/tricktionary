@@ -38,7 +38,10 @@
              <label for="wheels">Wheel Sponsor</label>
              {% if request.method == 'POST' %} {% for error in form.wheels.errors %}
              <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.wheels(class="form-control") }}
-     
+
+             <label for="upload">Upload Photo</label>
+             {% if request.method == 'POST' %} {% for error in form.img_url.errors %}
+             <span class="errors">[{{ error }}]</span>{% endfor %} {% endif %} <p> {{ form.img_url }} </p>               
              <p></p>
              {{ form.submit(class="btn btn-info") }}
           </form>

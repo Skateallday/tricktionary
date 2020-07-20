@@ -7,20 +7,24 @@
          <form method="POST"  enctype="multipart/form-data">
             {{ form.hidden_tag() }} {{ form.csrf_token() }}
 
-             <label for="skaterName">Shoe Name</label>
-             {% if request.method == 'POST' %} {% for error in form.name.errors %}
-             <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.name(class="form-control") }}
-     
-             <label for="skaterAge">EST</label>
-             {% if request.method == 'POST' %} {% for error in form.est.errors %}
-             <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.est(class="form-control") }}
-     
-             <label for="nationality">Country of Origin</label>
-             {% if request.method == 'POST' %} {% for error in form.nationality.errors %}
-             <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.nationality(class="form-control") }}
-     
-             <p></p>
-             {{ form.submit(class="btn btn-info") }}
+            <label for="skaterName">Shoe Name</label>
+            {% if request.method == 'POST' %} {% for error in form.name.errors %}
+            <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.name(class="form-control") }}
+
+            <label for="skaterAge">EST</label>
+            {% if request.method == 'POST' %} {% for error in form.est.errors %}
+            <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.est(class="form-control") }}
+
+            <label for="nationality">Country of Origin</label>
+            {% if request.method == 'POST' %} {% for error in form.nationality.errors %}
+            <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.nationality(class="form-control") }}
+
+            <label for="upload">Upload Photo</label>
+            {% if request.method == 'POST' %} {% for error in form.img_url.errors %}
+            <span class="errors">[{{ error }}]</span>{% endfor %} {% endif %} <p> {{ form.img_url(class="btn btn-success") }} </p>        
+                
+            <p></p>
+            {{ form.submit(class="btn btn-info") }}
           </form>
       </div>
     </div>

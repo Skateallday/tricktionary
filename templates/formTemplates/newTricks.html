@@ -19,6 +19,9 @@
              {% if request.method == 'POST' %} {% for error in form.difficulty.errors %}
              <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.difficulty(class="form-control") }}
      
+             <label for="upload">Youtube Link</label>
+             {% if request.method == 'POST' %} {% for error in form.youtube_url.errors %}
+             <span class="errors">[{{ error }}]</span>{% endfor %} {% endif %} <p> {{ form.youtube_url(class="form-control") }} </p>               
              <p></p>
              {{ form.submit(class="btn btn-info") }}
           </form>

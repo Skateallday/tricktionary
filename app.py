@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 from models import whoIs, sessionCheck
 from forms.forms import search, loginForm, contactForm, registration, recordSelection
 from forms.addRecords import newSkater, newSkateboards, newShoes, newTricks, newTrucks, newWheels
+from werkzeug.utils import secure_filename
 
 from flask_wtf.csrf import CSRFProtect, CSRFError
 import os
@@ -18,6 +19,9 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
 bcrypt = Bcrypt(app)
 csrf = CSRFProtect(app)
 SECRET_KEY = os.urandom(32)
+UPLOAD_FOLDER = 'static/images/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = set(['jpg'])
 app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.errorhandler(404)
@@ -81,42 +85,67 @@ def formTemplate(selectForm):
 	if selectForm == 'newSkater':
 		form = newSkater(request.form)
 		table = "skaters"
-		formData = [form.name.data, form.DOB.data, form.nationality.data, form.gender.data, form.skateboard.data, form.wheels.data, form.shoes.data, form.trucks.data]
-		record = '''INSERT INTO ''' + table + ''' (name, DOB, nationality, gender, skateboard, wheels, shoes, trucks) VALUES (?,?,?,?,?,?,?,?);'''
+		if request.method == 'POST':
+			f = request.files.get('img_url')
+			img_url = (form.img_url.data)
+			filename = secure_filename(f.filename)
+			f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			formData = [form.name.data, form.DOB.data, form.nationality.data, form.gender.data, form.skateboard.data, form.wheels.data, form.shoes.data, form.trucks.data, filename]
+			record = '''INSERT INTO ''' + table + ''' (name, DOB, nationality, gender, skateboard, wheels, shoes, trucks, img_url) VALUES (?,?,?,?,?,?,?,?,?);'''
 
 	elif selectForm =='newSkateboard':
 		form =newSkateboards(request.form)
 		table = "skateboards"
-		formData = [form.name.data, form.est.data, form.nationality.data]
-		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+		if request.method == 'POST':
+			f = request.files.get('img_url')
+			img_url = (form.img_url.data)
+			filename = secure_filename(f.filename)
+			f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			formData = [form.name.data, form.est.data, form.nationality.data, filename]
+			record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
 	elif selectForm =='newWheels':
 		form =newWheels(request.form)	
 		table = "wheels"
-		formData = [form.name.data, form.est.data, form.nationality.data]
-		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+		if request.method == 'POST':
+			f = request.files.get('img_url')
+			img_url = (form.img_url.data)
+			filename = secure_filename(f.filename)
+			f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			formData = [form.name.data, form.est.data, form.nationality.data, filename]
+			record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
 
 	elif selectForm =='newTricks':
 		form =newTricks(request.form)
 		table = "tricks"
-		formData = [form.name.data, form.creator.data, form.difficulty.data]
-		record = '''INSERT INTO ''' + table + ''' (name, creator, difficulty) VALUES (?,?,?);'''
+		formData = [form.name.data, form.creator.data, form.difficulty.data,  form.youtube_url.data]
+		record = '''INSERT INTO ''' + table + ''' (name, creator, difficulty, youtube_url) VALUES (?,?,?,?);'''
 	
 	elif selectForm =='newTrucks':
 		form =newTrucks(request.form)	
 		table = "trucks"
-		formData = [form.name.data, form.est.data, form.nationality.data]
-		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+		if request.method == 'POST':
+			f = request.files.get('img_url')
+			img_url = (form.img_url.data)
+			filename = secure_filename(f.filename)
+			f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			formData = [form.name.data, form.est.data, form.nationality.data, filename]
+			record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
 	else:
 		form =newShoes(request.form)
 		table = "shoes"
-		formData = [form.name.data, form.est.data, form.nationality.data]
-		record = '''INSERT INTO ''' + table + ''' (name, est, nationality) VALUES (?,?,?);'''
+		if request.method == 'POST':
+			f = request.files.get('img_url')
+			img_url = (form.img_url.data)
+			filename = secure_filename(f.filename)
+			f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			formData = [form.name.data, form.est.data, form.nationality.data, filename]
+			record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
 	if request.method == 'POST':
-				conn = sqlite3.connect('tempLibrary.db')                
+				conn = sqlite3.connect('library.db')                
 				with conn:
 						c = conn.cursor()
 						try:	
@@ -151,7 +180,6 @@ def contact():
 def lists(category):
 	txt_url=open('static/text/' + category + '.txt') 
 	content = txt_url.read()
-	print(content)
 	txt_url.close()
 	if request.method == 'GET':
 				conn = sqlite3.connect('library.db')                
@@ -168,10 +196,10 @@ def lists(category):
 						except Exception as e: print(e)
 
 	if g.username:
-		return render_template("results.html", category=category, content=content, results=results, loggedIn= "yes", username=g.username)
+		return render_template("resultsTemplates/"+str(category)+"Results.html", category=category, content=content, results=results, loggedIn= "yes", username=g.username)
 
 	else:
-		return render_template("results.html", results=results, content=content, category=category)
+		return render_template("resultsTemplates/"+str(category)+"Results.html", results=results, content=content, category=category)
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():
