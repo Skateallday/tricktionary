@@ -20,6 +20,7 @@
              <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.difficulty(class="form-control") }}
      
              <label for="upload">Youtube Link</label>
+             <p class="smallText">This is the short 11 character code at the end of youtube videos, for example: <i>https://www.youtube.com/watch?v=<b>pV3wyHat1h8</b></i></p>
              {% if request.method == 'POST' %} {% for error in form.youtube_url.errors %}
              <span class="errors">[{{ error }}]</span>{% endfor %} {% endif %} <p> {{ form.youtube_url(class="form-control") }} </p>               
              <p></p>

@@ -1,33 +1,24 @@
 {% extends "results.html" %}
 {% block choosenResults %}
-<div class="row">
-   <div class="col-lg-6">
-      <h3>Trick Video</h3>
-   </div>
-   <div class="col-lg-2">
-      <h3>Trick </h3>
-   </div>
-   <div class="col-lg-2">
-      <h3>Creator</h3>
-   </div>
-   <div class="col-lg-2">
-      <h3>Difficulty</h3>
-   </div>
+
+
+{% for r in results %}
+            
+{% if i == 2 %}
 </div>
-{% for r in results %}	
+    {% set i = 0 %}   
+{% else %} 
 <div class="row">
-   <div class="col-lg-6">
+   <div class="col-lg-3">
       <iframe width="560" height="315" src=https://www.youtube.com/embed/{{r[3]}} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-   </div>
-   <div class="col-lg-2">
+   
       {{ r[0] }}
    </div>
-   <div class="col-lg-2">
-      {{ r[1] }}
-   </div>
-   <div class="col-lg-2">
-      {{ r[2] }}
-   </div>
+  
 </div>
+    {% set i = i+1 %}
+{% endif %}
+
 {% endfor %}
+
 {% endblock %}

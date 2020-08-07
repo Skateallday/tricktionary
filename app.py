@@ -153,6 +153,7 @@ def formTemplate(selectForm):
 								print("Successful!")						
 						except Exception as e: print(e)
 						flash(" Successfully Posted!!")
+						redirect("index.html")
 
 	if g.username:		
 		return render_template("formTemplates/"+str(selectForm)+".html", loggedIn= "yes", username=g.username, form=form)
@@ -196,10 +197,10 @@ def lists(category):
 						except Exception as e: print(e)
 
 	if g.username:
-		return render_template("resultsTemplates/"+str(category)+"Results.html", category=category, content=content, results=results, loggedIn= "yes", username=g.username)
+		return render_template("resultsTemplates/"+str(category)+"Results.html", i=0, category=category, content=content, results=results, loggedIn= "yes", username=g.username)
 
 	else:
-		return render_template("resultsTemplates/"+str(category)+"Results.html", results=results, content=content, category=category)
+		return render_template("resultsTemplates/"+str(category)+"Results.html", i=0, results=results, content=content, category=category)
 
 @app.route('/upload/', methods=['POST', 'GET'])
 def upload():

@@ -4,17 +4,6 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6">
-				<h2>{{ category }}</h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-6">
-				<p>{{ content}}</p>			</div><div class="col-lg-6">
-				<img class="responImgs" alt={{category}} src={{url_for('static', filename='images/designImages/'+category+'.jpg')}}>
-			</div>
-		</div>		
-		<div class="row">
 			<div class="col-lg-12">
 			 <ul class="nav nav-pills nav-justified">
 				 <li class="nav-item ">
@@ -39,6 +28,20 @@
 			 </ul>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<h2>{{ category }}</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<p>{{ content}}</p>			</div><div class="col-lg-6">
+				<img class="responImgs" alt={{category}} src={{url_for('static', filename='images/designImages/'+category+'.jpg')}}>
+			</div>
+		</div>	
+		<br>
+			
+		
 			
 		{% block choosenResults %}
 

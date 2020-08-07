@@ -2,7 +2,7 @@
 {% block choosenForm %}
 
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-6">
      <div class="form-group">
          <form method="POST"  enctype="multipart/form-data">
             {{ form.hidden_tag() }} {{ form.csrf_token() }}
@@ -27,6 +27,9 @@
             {{ form.submit(class="btn btn-info") }}
           </form>
       </div>
+    </div>
+    <div class="col-lg-6">
+      <img src={{url_for('static', filename='images/designImages/shoes.jpg')}} class="responImgs" alt="image of shoes">
     </div>
 </div>
 

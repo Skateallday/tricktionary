@@ -15,62 +15,64 @@
 <link rel="stylesheet" href="../static/css/styles.css">
 <link rel="stylesheet" href="../static/css/searchbar.css">
 </head>
+<body class="body">
 
-<header>
-  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href={{ url_for ('home')}}> <img src={{url_for('static', filename='images/favicon.ico')}} />   
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href={{url_for('home')}} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Category
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href={{url_for('lists', category="Skaters")}}>Skaters</a>
-              <a class="dropdown-item" href={{url_for('lists', category="Skateboards")}} >Skateboards</a>
-              <a class="dropdown-item" href={{url_for('lists', category="Shoes")}} >Shoes</a>
-              <a class="dropdown-item" href={{url_for('lists', category="Trucks")}} >Trucks</a>
-              <a class="dropdown-item" href={{url_for('lists', category="Wheels")}} >Wheels</a>
-            </div>
-          </li>
-          <a class="nav-link" href={{ url_for('addRecord')}}>Add Record</a>
+<header class="header">
+ 
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+  <a class="navbar-brand" href={{ url_for ('home')}}> <img class="navIcon" src={{url_for('static', filename='images/favicon.ico')}} />   
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-          <a class="nav-link" href={{ url_for('contact')}}>Contact</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
       
-      </ul>
-      
-      {% if loggedIn == 'yes' %}
-        <ul class="navbar-nav mr-auto">
-          <li><a class="btn btn-outline-success" role="button" aria-pressed="true" href={{url_for('profile')}}>{{ username }}
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href={{url_for('home')}} id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Category
           </a>
-          </li>
-          <li><a class="btn btn-outline-danger" role="button" aria-pressed="true" href={{url_for('logout')}}>Logout</a>
-          </li>
-        </ul>
-      {% else %}
-      <ul class="navbar-nav mr-auto">
-        <li><a class="btn btn-outline-info" role="button" aria-pressed="true" href={{url_for('LogIn')}}>Log in</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href={{url_for('lists', category="Skaters")}}>Skaters</a>
+            <a class="dropdown-item" href={{url_for('lists', category="Skateboards")}} >Skateboards</a>
+            <a class="dropdown-item" href={{url_for('lists', category="Trucks")}} >Trucks</a>
+            <a class="dropdown-item" href={{url_for('lists', category="Wheels")}} >Wheels</a>
+            <a class="dropdown-item" href={{url_for('lists', category="Shoes")}} >Shoes</a>
+            <a class="dropdown-item" href={{url_for('lists', category="Tricks")}} >Tricks</a>
+
+          </div>
         </li>
-        <li><a class="btn btn-outline-warning" role="button" aria-pressed="true" href={{url_for('SignUp')}}>Sign Up</a>
+        <a class="nav-link" href={{ url_for('addRecord')}}>Add Record</a>
+
+        <a class="nav-link" href={{ url_for('contact')}}>Contact</a>
+    
+    </ul>
+    
+    {% if loggedIn == 'yes' %}
+      <ul class="navbar-nav mr-auto">
+        <li><a class="btn btn-outline-success" role="button" aria-pressed="true" href={{url_for('profile')}}>{{ username }}
+        </a>
+        </li>
+        <li><a class="btn btn-outline-danger" role="button" aria-pressed="true" href={{url_for('logout')}}>Logout</a>
         </li>
       </ul>
-      {% endif %}
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
+    {% else %}
+    <ul class="navbar-nav mr-auto">
+      <li><a class="btn btn-outline-info" role="button" aria-pressed="true" href={{url_for('LogIn')}}>Log in</a>
+      </li>
+      <li><a class="btn btn-outline-warning" role="button" aria-pressed="true" href={{url_for('SignUp')}}>Sign Up</a>
+      </li>
+    </ul>
+    {% endif %}
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
 </nav>
 </header>
-<body>
 
-    
 
 {% block content %}
 
@@ -82,8 +84,8 @@
     <div class="containerfluid">
         <div class="row">
             <div class="col-sm-12">
-                <h5>Created Using Python Flask</h5>
-                <p>Design by <a href="https://www.jamfish.co.uk">Jamfish</a></p>
+                <p>Created Using Python Flask</p>
+                <h5>Design by <a href="https://www.jamfish.co.uk">Jamfish</a></h5>
             </div>
         </div>
     </div>

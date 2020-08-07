@@ -16,7 +16,6 @@
 .altsections{
     padding-top:6vmax;
     padding-bottom:6vmax;
-
     background:#405D7D;
     color:#fff;
     font-size: 20px;
@@ -33,9 +32,13 @@
     height:30.5vmax;
 }
 
+.smallText{
+    font-size: 14px;
+}
 #footer{
     background:#082a39;
     color:#fff;
+    padding:15px;
 }
 
 .btn-outline-info, .btn-outline-primary, .btn-outline-success{
@@ -44,8 +47,7 @@
 
 .nav-pills{
     background-color: #082a39;
-    border-radius: 15px;
-    margin:15px;
+    border-radius: 10px;
 }
 
 .responImgs{
@@ -58,6 +60,11 @@
     color:#fff;
 }
 
-header{
-    margin-bottom:50px;
+.header{
+    padding-bottom:50px;
+}
+
+.navIcon{
+    height:25px;
+    width:auto;
 }

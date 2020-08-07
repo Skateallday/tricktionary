@@ -39,7 +39,7 @@ class newTricks(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=2, max=30)])
     creator = StringField('Age', validators=[DataRequired(), Length(min=2, max=30)])
     difficulty = SelectField('Difficulty', choices=[('Easy', 'Easy'), ('Intermediate', 'Intermediate'), ('Hard', 'Hard')]) 
-    youtube_url = StringField('Youtube Link', validators=[DataRequired(), Length(min=2, max=30)])
+    youtube_url = StringField('Youtube Link', validators=[DataRequired(), Length(min=11, max=11)])
     submit = SubmitField('Propose new trick')
 
 class newTrucks(FlaskForm):

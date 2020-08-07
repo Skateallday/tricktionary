@@ -1,8 +1,16 @@
 {% extends "template.html" %}
 {% block content %}
-<div class="container-fluid sections">
+<div class="container-fluid altsections">
 
 	<div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">
+              &times;
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
 	   <div class="row">
 		  <div class="col-lg-12">
             <h1>Have we missed something out?</h1>
@@ -21,29 +29,30 @@
                     <a class="nav-link" href={{url_for('formTemplate', selectForm="newSkateboard")}}>Skateboards</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newWheels")}}>Wheels</a>
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newTrucks")}}>Trucks</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newWheels")}}>Wheels</a>
+                </li>                
                 <li class="nav-item">
                     <a class="nav-link" href={{url_for('formTemplate', selectForm="newShoes")}}>Shoes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href={{url_for('formTemplate', selectForm="newTricks")}}>Tricks</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={{url_for('formTemplate', selectForm="newTrucks")}}>Trucks</a>
-                </li>
+                
             </ul>
            </div>
        </div>
 
 	   <div class="row">
-		  <div class="col-lg-8">
+		  <div class="col-lg-12">
 
             {% block choosenForm %}
 
             {% endblock %}
 
-		  </div>
+          </div>
 	   </div>
     </div>
     </div>
