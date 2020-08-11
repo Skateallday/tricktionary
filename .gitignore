@@ -1,1 +1,4 @@
 venv
+etc
+requirements.txt
+test

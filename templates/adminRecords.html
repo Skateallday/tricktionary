@@ -6,51 +6,44 @@
     <div class="container">
         <div class="row">
 			<div class="col-lg-12">
-                <h2>Current records</h2>
-                <p>{{data[0]}} {{data[1]}} {{data[2]}} {{data[3]}} {{data[4]}} {{data[5]}} {{data[6]}} {{data[7]}}</p>
+                <h2>Approve new records</h2>
 
 			</div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h2>Add new</h2>
-                <form method="POST"  enctype="multipart/form-data">
-                    {{ form.hidden_tag() }} {{ form.csrf_token() }}
-                    <label for="skaterName">Skater Name</label>
-                    {% if request.method == 'POST' %} {% for error in form.name.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.name(class="form-control") }}
-
-                    <label for="skaterAge">DOB</label>
-                    {% if request.method == 'POST' %} {% for error in form.DOB.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.DOB(class="form-control") }}
-
-                    <label for="nationality">Nationality</label>
-                    {% if request.method == 'POST' %} {% for error in form.nationality.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.nationality(class="form-control") }}
-
-                    <label for="skaterSex">Gender</label>
-                    {% if request.method == 'POST' %} {% for error in form.gender.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.gender(class="form-control") }}
-
-                    <label for="skateboard">Skateboard Company</label>
-                    {% if request.method == 'POST' %} {% for error in form.skateboard.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.skateboard(class="form-control") }}
-
-                    <label for="wheelSponsor">Wheel Sponsor</label>
-                    {% if request.method == 'POST' %} {% for error in form.wheels.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.wheels(class="form-control")}}
-
-                    <label for="shoeSponsor">Shoe Sponsor</label>
-                    {% if request.method == 'POST' %} {% for error in form.shoes.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.shoes(class="form-control") }}
-
-                    <label for="trucks">Truck Sponsor</label>
-                    {% if request.method == 'POST' %} {% for error in form.trucks.errors %}
-                    <span class="errors">[{{ error }}]</span> {% endfor %} {% endif %} {{ form.trucks(class="form-control") }}
-                    <p></p>
-                    {{ form.submit(class="btn btn-info") }}
-                 </form>
+             <ul class="nav nav-pills nav-justified">
+                 <li class="nav-item ">
+                     <a class="nav-link" href={{url_for('choosenApprove', chooseApprove="approveSkaters")}}>Skater</a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href={{url_for('choosenApprove', chooseApprove="approveSkateboards")}}>Skateboards</a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href={{url_for('choosenApprove', chooseApprove="approveTrucks")}}>Trucks</a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href={{url_for('choosenApprove', chooseApprove="approveWheels")}}>Wheels</a>
+                 </li>                
+                 <li class="nav-item">
+                     <a class="nav-link" href={{url_for('choosenApprove', chooseApprove="approveShoes")}}>Shoes</a>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href={{url_for('choosenApprove', chooseApprove="approveTricks")}}>Tricks</a>
+                 </li>
+                 
+             </ul>
             </div>
+        </div>
+ 
+        <div class="row">
+           <div class="col-lg-12">
+ 
+             {% block choosenApproval %}
+ 
+             {% endblock %}
+ 
+           </div>
         </div>
     </div>
 </div>

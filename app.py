@@ -303,7 +303,6 @@ def admin():
 		c.execute('SELECT * FROM users WHERE username LIKE (?)', (g.username, ))
 		admin = c.fetchall()
 		for results in admin:
-			print(results[3]) 
 			if str(results[3]) == "Yes":
 				return render_template("adminPanel.html", loggedIn= "yes", username=g.username)
 			else:
@@ -317,27 +316,52 @@ def admin():
 
 @app.route("/adminRecords", methods=['POST', 'GET'])
 def adminRecords():
-	form = newSkater(request.form)       
-	conn = sqlite3.connect('library.db')
-	print ("Library data opened")
-	c = conn.cursor()
-	c.execute('SELECT * from skaters')
-	results = c.fetchall()
-	print(results)
-	for data in results:
-		return render_template("adminRecords.html", loggedIn= "yes", username=g.username, form=form, data=data)
-	if request.method == 'POST':
-		
-		enterSkater = [((form.name.data), (form.DOB.data), (form.nationality.data), (form.gender.data), (form.skateboard.data), (form.wheels.data ), (form.shoes.data), (form.trucks.data))]
-		with conn:
-			try:
-				insertPost = '''INSERT INTO skaters (name, DOB, nationality, gender, skateboard, wheels, shoes, trucks) VALUES(?,?,?,?,?,?,?,?)'''
-				c.executemany(insertPost, enterSkater)
-				print ("Insert correctly")
-			except Exception as e: print(e)                                                        
-		flash(" Successfully Posted!!")
 	
-	return render_template("adminRecords.html", loggedIn= "yes", username=g.username, form=form)
+	return render_template("adminRecords.html", loggedIn= "yes", username=g.username)
+
+
+
+@app.route('/choosenApprove/<chooseApprove>', methods=['POST', 'GET'])
+def choosenApprove(chooseApprove):
+	if chooseApprove == 'approveSkaters':
+		table = "skaters"
+
+
+	elif chooseApprove =='approveSkateboards':
+		table = "skateboards"
+
+
+	elif chooseApprove =='approveWheels':
+		table = "wheels"
+
+
+
+	elif chooseApprove =='approveTricks':
+		table = "tricks"
+	
+	elif chooseApprove =='approveTrucks':
+		table = "trucks"
+
+
+	else:
+		table = "shoes"
+
+
+	if request.method == 'POST':
+				conn = sqlite3.connect('library.db')                
+				with conn:
+						c = conn.cursor()
+						try:	
+								c.executemany(record, [formData])
+								print("Successful!")						
+						except Exception as e: print(e)
+						flash(" Successfully Posted!!")
+						redirect("index.html")
+
+	if g.username:		
+		return render_template("approvalList/"+str(chooseApprove)+".html", loggedIn= "yes", username=g.username)
+	else:
+		return render_template("approvalList/"+str(chooseApprove)+".html")				
 
 @app.route("/userRecords", methods=['POST', 'GET'])
 def userRecords():
