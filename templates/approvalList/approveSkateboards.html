@@ -1,22 +1,33 @@
 {% extends "adminRecords.html" %}
 {% block choosenApproval %}
 
-<div class="row">
+    {% for r in results %}
+        <div class="row adminApproveResults">
 
-{% for r in results %}
-            
-{% if i == 2 %}
-</div>
-    {% set i = 0 %}   
-{% else %} 
-    <div class="col-lg-4">
-    <img class="responImgs" src={{url_for('static', filename='images/uploads/'+r[8])}}	{{ r[8] }}>
-        {{ r[0] }}
+            <div class="col-sm-2">
+                {{ r[0] }}
+            </div>
 
-    </div>
-    {% set i = i+1 %}
-{% endif %}
+            <div class="col-sm-2">
+                {{ r[1] }}
+            </div>
 
-{% endfor %}
-</div>
+            <div class="col-sm-2">
+                {{ r[2] }}
+            </div>
+
+            <div class="col-sm-2">        
+                <img class="responImgs" src={{url_for('static', filename='images/uploads/'+r[3])}}>
+            </div>
+
+            <div class="col-sm-2">
+                <a class="btn btn-success" href={{url_for('approve', approveId=r[0])}}>Approve Record</a>
+            </div>
+
+            <div class="col-sm-2">
+                <a class="btn btn-danger" href={{url_for('delete', approveId=r[0])}}>Delete Record</a>
+            </div>
+
+        </div>
+    {% endfor %}
 {% endblock %}

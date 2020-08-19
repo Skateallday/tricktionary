@@ -145,14 +145,14 @@ def formTemplate(selectForm):
 			record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
 	if request.method == 'POST':
-				conn = sqlite3.connect('library.db')                
+				conn = sqlite3.connect('tempLibrary.db')                
 				with conn:
 						c = conn.cursor()
 						try:	
 								c.executemany(record, [formData])
 								print("Successful!")						
 						except Exception as e: print(e)
-						flash(" Successfully Posted!!")
+						flash("Post unsuccessful, try again or please contact admin.")
 						redirect("index.html")
 
 	if g.username:		
@@ -193,7 +193,6 @@ def lists(category):
 								results =c.fetchall()   
 								for result in results:
 									print(results)
-									print(result)						
 						except Exception as e: print(e)
 
 	if g.username:
@@ -210,6 +209,12 @@ def upload():
 		with open('static/newSkaters.json', 'w') as G:
 			json.dump(request.form, G)
 		return render_template("upload.html", upload=upload)
+
+#####################################################################
+#																	#
+# 	 					LOG IN SECTION					 			#
+#																	#
+#####################################################################
 
 @app.route('/Login/', methods=['GET', 'POST'])
 def LogIn():
@@ -277,6 +282,12 @@ def SignUp():
                         return render_template("signup.html", form=registerForm)
                 return render_template('signup.html', form=registerForm)
 
+#####################################################################
+#																	#
+#  						END OF SECTION								#
+#																	#
+#####################################################################
+
        
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():      
@@ -294,6 +305,12 @@ def profile():
         else:
                 flash('Please Login to continue')
                 return redirect('Login')
+
+#####################################################################
+#																	#
+#  						ADMIN PANEL									#
+#																	#
+#####################################################################
 		 
 @app.route("/adminPanel", methods=['GET', 'POST'])
 def admin():
@@ -326,15 +343,11 @@ def choosenApprove(chooseApprove):
 	if chooseApprove == 'approveSkaters':
 		table = "skaters"
 
-
 	elif chooseApprove =='approveSkateboards':
 		table = "skateboards"
 
-
 	elif chooseApprove =='approveWheels':
 		table = "wheels"
-
-
 
 	elif chooseApprove =='approveTricks':
 		table = "tricks"
@@ -342,26 +355,31 @@ def choosenApprove(chooseApprove):
 	elif chooseApprove =='approveTrucks':
 		table = "trucks"
 
-
 	else:
 		table = "shoes"
 
-
-	if request.method == 'POST':
-				conn = sqlite3.connect('library.db')                
+	if request.method == 'GET':
+				conn = sqlite3.connect('tempLibrary.db')    
+				print('opened DB')            
 				with conn:
 						c = conn.cursor()
 						try:	
-								c.executemany(record, [formData])
-								print("Successful!")						
+								findApprove = ("SELECT * FROM " + table +" ")
+								c.execute(findApprove)
+								results =c.fetchall()   
+								for result in results:
+									print(results)		
+									return render_template("approvalList/"+str(chooseApprove)+".html",i=0, results=results, loggedIn= "yes", username=g.username)
+				
 						except Exception as e: print(e)
-						flash(" Successfully Posted!!")
-						redirect("index.html")
+						flash("Not successful, try again please!")
+						redirect("adminRecords.html")
 
 	if g.username:		
 		return render_template("approvalList/"+str(chooseApprove)+".html", loggedIn= "yes", username=g.username)
 	else:
-		return render_template("approvalList/"+str(chooseApprove)+".html")				
+		flash('Please Login to continue')
+		return render_template('index.html')		
 
 @app.route("/userRecords", methods=['POST', 'GET'])
 def userRecords():
@@ -388,6 +406,26 @@ def approve(approveId):
 		return render_template("userRecords.html", loggedIn= "yes", username=g.username, results=results)
 		
 	return render_template("userRecords.html", loggedIn= "yes", username=g.username)
+
+@app.route("/delete/<approveId>", methods=['POST', 'GET'])
+def delete(approveId):
+	connTemp = sqlite3.connect('tempLibrary.db')
+	cTemp = connTemp.curor()
+	conn =sqlite3.connect('library.db')
+	c = conn.cursor()
+	c.execute('SELECT * from wheels')
+	results = c.fetchall()
+	print(results)
+	for data in results:
+		return render_template("userRecords.html", loggedIn= "yes", username=g.username, results=results)
+		
+	return render_template("userRecords.html", loggedIn= "yes", username=g.username)
+
+#####################################################################
+#																	#
+#  						END OF SECTION								#
+#																	#
+#####################################################################
 
 
 if __name__ == "__main__":
