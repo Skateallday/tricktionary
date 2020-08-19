@@ -21,11 +21,11 @@
             </div>
 
             <div class="col-sm-2">
-                <a class="btn btn-success" href={{url_for('approve', approveId=r[0])}}>Approve Record</a>
+                <a class="btn btn-success" href={{url_for('approve', table="skateboards",  approveId=r[0])}}>Approve Record</a>
             </div>
 
             <div class="col-sm-2">
-                <a class="btn btn-danger" href={{url_for('delete', approveId=r[0])}}>Delete Record</a>
+                <a class="btn btn-danger" href={{url_for('delete', table="skateboards", approveId=r[0])}}>Delete Record</a>
             </div>
 
         </div>

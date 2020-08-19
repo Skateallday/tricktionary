@@ -5,6 +5,20 @@
 <div class="container-fluid sections">
     <div class="container">
         <div class="row">
+            <div class="col-4-lg"></div>
+            <div class="col-4-lg">
+                {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">
+                      &times;
+                    </button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-4-lg"></div>
+        </div>
+        <div class="row">
 			<div class="col-lg-12">
                 <h2>Approve new records</h2>
 

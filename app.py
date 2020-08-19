@@ -389,37 +389,64 @@ def userRecords():
 	results = c.fetchall()
 	print(results)
 	for data in results:
-		return render_template("userRecords.html", loggedIn= "yes", username=g.username, results=results)
+		return render_template("userRecords.html", loggedIn="yes", username=g.username, results=results)
 		
-	return render_template("userRecords.html", loggedIn= "yes", username=g.username)
+	return render_template("userRecords.html", loggedIn="yes", username=g.username)
 
-@app.route("/approve/<approveId>", methods=['POST', 'GET'])
-def approve(approveId):
-	connTemp = sqlite3.connect('tempLibrary.db')
-	cTemp = connTemp.curor()
-	conn =sqlite3.connect('library.db')
-	c = conn.cursor()
-	c.execute('SELECT * from wheels')
-	results = c.fetchall()
-	print(results)
-	for data in results:
-		return render_template("userRecords.html", loggedIn= "yes", username=g.username, results=results)
-		
-	return render_template("userRecords.html", loggedIn= "yes", username=g.username)
+@app.route("/approve/<table>/<approveId>", methods=['POST', 'GET'])
+def approve(table, approveId):
+	print(table)
+	print(approveId)
+	if table == 'skaters':
+		record = '''INSERT INTO ''' + table + ''' (name, DOB, nationality, gender, skateboard, wheels, shoes, trucks, img_url) VALUES (?,?,?,?,?,?,?,?,?);'''
+	elif table =='skateboards':
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
+	elif table =='wheels':
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
+	elif table =='tricks':
+		record = '''INSERT INTO ''' + table + ''' (name, creator, difficulty, youtube_url) VALUES (?,?,?,?);'''
+	elif table =='trucks':
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
+	else:
+		record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
-@app.route("/delete/<approveId>", methods=['POST', 'GET'])
-def delete(approveId):
 	connTemp = sqlite3.connect('tempLibrary.db')
-	cTemp = connTemp.curor()
-	conn =sqlite3.connect('library.db')
-	c = conn.cursor()
-	c.execute('SELECT * from wheels')
-	results = c.fetchall()
-	print(results)
-	for data in results:
-		return render_template("userRecords.html", loggedIn= "yes", username=g.username, results=results)
-		
-	return render_template("userRecords.html", loggedIn= "yes", username=g.username)
+	cTemp = connTemp.cursor()
+	try:
+		cTemp.execute('SELECT * FROM '+ table +' WHERE name LIKE (?)', (approveId,))
+		tempResults = cTemp.fetchall()
+		for data in tempResults:
+			conn = sqlite3.connect('library.db') 
+			with conn:
+				try:
+					c = conn.cursor()
+					c.executemany(record, [data])
+					c.close()
+					cTemp.execute('DELETE FROM '+ table +' WHERE name LIKE (?)', (approveId, ))	
+					connTemp.commit()
+					cTemp.close()
+					flash("You have moved " + approveId + "  into " + table + " and removed it from the temporary database. This will now appear live on the site.")
+					return redirect(url_for('adminRecords', loggedIn='yes', username=g.username))
+				except Exception as e: print(e)
+				flash("Did not approve record, try again!", "error" )		
+				return redirect(url_for('adminRecords', loggedIn='yes', username=g.username))
+	except Exception as e: print(e)
+	flash("Did not approve record, try again!", "error" )		
+	return redirect(url_for('adminRecords', loggedIn='yes', username=g.username))
+	
+
+@app.route("/delete/<table> <approveId>", methods=['POST', 'GET'])
+def delete(table, approveId):
+	connTemp = sqlite3.connect('tempLibrary.db')
+	cTemp = connTemp.cursor()
+	try:
+		cTemp.execute('DELETE FROM '+ table +' WHERE name LIKE (?)', (approveId, ))	
+		connTemp.commit()
+		cTemp.close()
+		flash("You have deleted " + approveId + " from " + table)
+	except Exception as e: print(e)
+	flash("Not successful, try again please!")
+	return redirect(url_for('adminRecords', loggedIn='yes', username=g.username))
 
 #####################################################################
 #																	#
