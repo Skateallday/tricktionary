@@ -4,78 +4,35 @@
 
 <div class="container-fluid sections">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2>Check user updates</h2>
-          <a class="btn btn-info" href={{url_for('userRecords')}}></a>
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Pick a section to update</h2>            
         </div>
       </div>
-        <div class="row">
-			<div class="col-lg-12">
-				<h2>Pick a section to update</h2>
-				
-			</div>
-		</div>
-        <div class="row">
-            <div class="col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Skaters</h5>
-                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/skaters.jpg', alt="Skater on the side of a quater")}}>  
-                  <a href={{url_for('adminRecords')}} class="btn btn-info">Skaters</a>
-                </div>
+      <div class="row">
+          <div class="col-lg-4">
+              <div class="card-body">
+                <h5 class="card-title">Add Records</h5>
+                <img class="card-img-top" src={{url_for('static', filename='images/designImages/skaters.jpg', alt="Skater on the side of a quater")}}>  
+                <a href={{url_for('adminRecords')}} class="btn btn-info">Skaters</a>
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Skateboards</h5>
-                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/boards1.jpg', alt="Man holding a skateboard")}}>  
-                  <a href={{url_for('adminRecords')}}  class="btn btn-info">Go somewhere</a>
-                </div>
+              <div class="card-body">
+                <h5 class="card-title">Edit Records (To Build)</h5>
+                <img class="card-img-top" src={{url_for('static', filename='images/designImages/skaters.jpg', alt="Skater on the side of a quater")}}>  
+                <a href={{url_for('adminRecords')}} class="btn btn-info">Skaters</a>
               </div>
             </div>
             <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Shoes</h5>
-                    <img class="card-img-top" src={{url_for('static', filename='images/designImages/shoes1.jpg', alt="Skate shoes")}}>  
-                    <a href={{url_for('adminRecords', stat="shoes")}}  class="btn btn-info">Go somewhere</a>
-                  </div>
-                </div>
+              <div class="card-body">
+                <h5 class="card-title">Remove Records (To Build)</h5>
+                <img class="card-img-top" src={{url_for('static', filename='images/designImages/skaters.jpg', alt="Skater on the side of a quater")}}>  
+                <a href={{url_for('adminRecords')}} class="btn btn-info">Skaters</a>
               </div>
+            </div>
           </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Trucks</h5>
-                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/trucks1.jpg', alt="Skateboard trucks")}}>  
-                  <a href={{url_for('adminRecords', stat="trucks")}}  class="btn btn-info">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Wheels</h5>
-                  <img class="card-img-top" src={{url_for('static', filename='images/designImages/wheels1.jpg', alt="Skateboard Wheels")}}>  
-                  <a href={{url_for('adminRecords', stat="wheels")}}  class="btn btn-info">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Tricks</h5>
-                    <img class="card-img-top" src={{url_for('static', filename='images/designImages/tricks1.jpg', alt="Man doing a noseslip on a skateboard")}}>  
-                    <a href={{url_for('adminRecords', stat="tricks")}}  class="btn btn-info">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-          
-        
+        </div>    
     </div>
 </div>
 

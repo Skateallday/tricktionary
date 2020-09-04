@@ -8,11 +8,17 @@
 }
 
 .sections{
+    padding: 30px 0 0 30px;
     background:#3e6f6f;
+    border-top: 5px solid #082a39;
     color:#fff;
     font-size:20px;
 }
 
+.resultImgs{
+    width:150px;
+    height:auto;
+}
 .altsections{
     padding-top:6vmax;
     padding-bottom:6vmax;
@@ -74,3 +80,6 @@
     margin: 15px 15px 15px 15px;
 }
 
+.itemTitle{
+    text-align: center;
+}

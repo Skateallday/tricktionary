@@ -1,14 +1,22 @@
 {% extends "results.html" %}
 {% block choosenResults %}
 
+<div class="row">
+    {% for r in results %}	
 
-	{% for r in results %}	
-        <div class="row">
-            <div class="col-lg-3">
-                <img class="responImgs" src={{url_for('static', filename='images/uploads/'+r[3])}}	{{ r[3] }}>
-                {{ r[0] }}
-            </div>
-        </div>
+    {% if i == 5 %}	
+</div>
+    {% set i = 0 %}
+    {% else %}
+
+    <div class="col-lg-3">
+        <img class="responImgs" src={{url_for('static', filename='images/uploads/'+r[3])}}	{{ r[3] }}>
+        <h5 class="itemTitle">{{ r[0] }}</h5> 
+    </div>
+    {% set i = i+1 %}
+    {% endif %}
     {% endfor %}
+
+</div>
 
 {% endblock %}

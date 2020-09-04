@@ -1,11 +1,9 @@
-
 {% extends "template.html" %}
 {% block content %}
 
 
 <div class="container-fluid homepageHeader">
-    <div class="row justify-content-center">
-      
+    <div class="row justify-content-center">      
       {% for message in get_flashed_messages() %}
       <div class="alert alert-warning">
           <button type="button" class="close" data-dismiss="alert">
@@ -25,26 +23,31 @@
                     <div class="col-auto">
                         <i class="fas fa-search h4 text-body"></i>
                     </div>
-                    <!--end of col-->
                     <div class="col">
-                        <input class="form-control transparent-input form-control-lg form-control-borderless" name="search" type="search" placeholder="Search topics or keywords">
+                        <input class="form-control transparent-input form-control-lg form-control-borderless" disabled name="search" type="search" placeholder="Search bar coming soon">
                     </div>
                     
                 </div>
             </form>
         </div>
-        <!--end of col-->
     </div>
 </div>
 <div class="container-fluid sections">
     <div class="container">
         <div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-8">
 				<p><h2>What we do</h2></p>
-                <p>We record and display current sponsorship deals with pro skaters.</p>
-                <p>We are open to new cases, if anything has been missed hit up the contact form and we'll add it to the site!</p>
+                <p>This is your one stop shop for finding out about Professional Skaters, Skateboard Companies, Wheels, Shoes and Trucks and even learn a trick or two.</p>
+                <p>Skating is an ever changing sport, with new pros coming out every year and people dropping off or changing teams. This site is a platform to track where they are currently.</p>
+                <p>This site is still under development.  If you have any suggestions regarding the design or site features feel free to drop us a message in the contact form and we can take it from there.</p>
+                <p>We are open to new cases, if anything has been missed hit up the contact form and we'll add it to the site.</p>
+                <p>Shread the Gnar!</p>
 				
-			</div>
+      </div>
+      <div class="col-lg-4">
+        <img src={{url_for('static', filename='images/4042.png')}} alt="Boy on skateboard">
+
+      </div>
 		</div>
         <div class="row">
             <div class="col-lg-4">

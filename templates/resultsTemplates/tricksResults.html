@@ -1,24 +1,24 @@
 {% extends "results.html" %}
 {% block choosenResults %}
 
-
+<div class="row">
 {% for r in results %}
             
-{% if i == 2 %}
+{% if i == 1 %}
 </div>
     {% set i = 0 %}   
 {% else %} 
-<div class="row">
-   <div class="col-lg-3">
+
+   <div class="col-lg-6">
       <iframe width="560" height="315" src=https://www.youtube.com/embed/{{r[3]}} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
    
-      {{ r[0] }}
-   </div>
+      <h5 class="itemTitle">{{ r[0] }}</h5> 
+    </div>
   
-</div>
     {% set i = i+1 %}
 {% endif %}
 
 {% endfor %}
+</div>
 
 {% endblock %}

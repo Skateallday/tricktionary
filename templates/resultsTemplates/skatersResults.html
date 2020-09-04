@@ -5,13 +5,14 @@
 
 {% for r in results %}
             
-{% if i == 2 %}
+{% if i == 5 %}
 </div>
     {% set i = 0 %}   
 {% else %} 
-    <div class="col-lg-4">
-    <img class="responImgs" src={{url_for('static', filename='images/uploads/'+r[8])}}	{{ r[8] }}>
-        {{ r[0] }}
+    <div class="col-lg-2">
+
+    <img class="resultImgs" src={{url_for('static', filename='images/uploads/'+r[8])}}	{{ r[8] }}>
+    <h5 class="itemTitle">{{ r[0] }}</h5> 
 
     </div>
     {% set i = i+1 %}
