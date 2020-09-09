@@ -19,7 +19,7 @@ app.config["MONGO_URI"] = "mongodb://localhost:27017/myDatabase"
 bcrypt = Bcrypt(app)
 csrf = CSRFProtect(app)
 SECRET_KEY = os.urandom(32)
-UPLOAD_FOLDER = 'static/images/uploads'
+UPLOAD_FOLDER = '/home/skateallday/tricktionary/static/images/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['jpg'])
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -47,19 +47,15 @@ def home():
 @app.route('/Search/', methods=['POST', 'GET'])
 def my_form_post():
 	if request.method == 'POST':
-		print ("request form")
 		search = request.form['search']
 			
 		for  skater in data:
 		
-			print("Value: " + str(skater))
 			if search in skater:
 				skater=skater[search]
-				print ("this worked")	
 				  
 			else:
 				return("There are no results for your search, try again.")
-				print ("DOES NOT WORK")
 	
 		return render_template("Search.html", search=search, skater=skater)
 
@@ -150,7 +146,6 @@ def formTemplate(selectForm):
 						c = conn.cursor()
 						try:	
 								c.executemany(record, [formData])
-								print("Successful!")						
 						except Exception as e: print(e)
 						flash("Post unsuccessful, try again or please contact admin.")
 						redirect("index.html")
@@ -179,36 +174,27 @@ def contact():
 
 @app.route('/list/<string:category>', methods=['POST', 'GET'])
 def lists(category):
-	txt_url=open('static/text/' + category + '.txt') 
+	results="Skater"
+	txt_url=open('/home/skateallday/tricktionary/static/text/' + category + '.txt') 
 	content = txt_url.read()
 	txt_url.close()
 	if request.method == 'GET':
-				conn = sqlite3.connect('library.db')                
-				with conn:
-						c = conn.cursor()
-						try:	
-
-								findCategory = ("SELECT * FROM " + category +" ")
-								c.execute(findCategory)
-								results =c.fetchall()   
-								for result in results:
-									print(results)
-						except Exception as e: print(e)
-
-	if g.username:
-		return render_template("resultsTemplates/"+str(category)+"Results.html", i=0, category=category, content=content, results=results, loggedIn= "yes", username=g.username)
-
+		conn = sqlite3.connect('/home/skateallday/tricktionary/library.db')
+		with conn:
+			c = conn.cursor()
+			try:
+				findCategory = ("SELECT * FROM " + category +" ")
+				c.execute(findCategory)
+				results =c.fetchall()
+				if g.username:
+					return render_template("resultsTemplates/"+str(category)+"Results.html", i=0, category=category, content=content, results=results, loggedIn= "yes", username=g.username)
+				else:
+					return render_template("resultsTemplates/"+str(category)+"Results.html", i=0, results=results, content=content, category=category)
+			except Exception as e: print(e)
 	else:
 		return render_template("resultsTemplates/"+str(category)+"Results.html", i=0, results=results, content=content, category=category)
 
-@app.route('/upload/', methods=['POST', 'GET'])
-def upload():
-	if request.method == 'POST':
-		print ("request.form")
-		upload = request.form['upload']
-		with open('static/newSkaters.json', 'w') as G:
-			json.dump(request.form, G)
-		return render_template("upload.html", upload=upload)
+
 
 #####################################################################
 #																	#
@@ -224,7 +210,7 @@ def LogIn():
 		else:
 			form = loginForm(request.form)       
 			if request.method == 'POST':  
-					conn = sqlite3.connect('library.db')                
+					conn = sqlite3.connect('/home/skateallday/tricktionary/library.db')                
 					with conn:
 							c = conn.cursor()
 							try:
@@ -263,14 +249,12 @@ def SignUp():
                         pw_hash =bcrypt.generate_password_hash(registerForm.password.data)
                         newEntry = [((registerForm.username.data), pw_hash, (registerForm.emailAddress.data), 'No')]
 
-                        conn =sqlite3.connect('library.db')
-                        print ("Opened database successfully")
+                        conn =sqlite3.connect('/home/skateallday/tricktionary/library.db')
                         with conn:
                                 c =conn.cursor()
                                 try:
                                         signupSQL = '''INSERT INTO users (username, password, email, admin) VALUES(?,?,?,?)'''
                                         c.executemany(signupSQL, newEntry)
-                                        print ("Insert correctly")
                                 except:
                                         flash("This is already an account, please log in with those details or change details.")
                                         c.commit()
@@ -292,13 +276,11 @@ def SignUp():
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():      
         if g.username:
-                conn =sqlite3.connect('library.db')
-                print ("Opened database successfully")
+                conn =sqlite3.connect('/home/skateallday/tricktionary/library.db')
                 c = conn.cursor()
 
                 c.execute('SELECT * FROM users WHERE username LIKE (?)', (g.username, ))
                 results = c.fetchall()
-                print(results) 
                     
                 return render_template("profile.html", loggedIn="yes", username=g.username)                
                 
@@ -315,7 +297,7 @@ def profile():
 @app.route("/adminPanel", methods=['GET', 'POST'])
 def admin():
 	if g.username:
-		conn =sqlite3.connect('library.db')
+		conn =sqlite3.connect('/home/skateallday/tricktionary/library.db')
 		c = conn.cursor()
 		c.execute('SELECT * FROM users WHERE username LIKE (?)', (g.username, ))
 		admin = c.fetchall()
@@ -359,8 +341,7 @@ def choosenApprove(chooseApprove):
 		table = "shoes"
 
 	if request.method == 'GET':
-				conn = sqlite3.connect('tempLibrary.db')    
-				print('opened DB')            
+				conn = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')    
 				with conn:
 						c = conn.cursor()
 						try:	
@@ -368,7 +349,6 @@ def choosenApprove(chooseApprove):
 								c.execute(findApprove)
 								results =c.fetchall()   
 								for result in results:
-									print(results)		
 									return render_template("approvalList/"+str(chooseApprove)+".html",i=0, results=results, loggedIn= "yes", username=g.username)
 				
 						except Exception as e: print(e)
@@ -383,11 +363,10 @@ def choosenApprove(chooseApprove):
 
 @app.route("/userRecords", methods=['POST', 'GET'])
 def userRecords():
-	conn = sqlite3.connect('tempLibrary.db')
+	conn = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')
 	c = conn.cursor()
 	c.execute('SELECT * from wheels')
 	results = c.fetchall()
-	print(results)
 	for data in results:
 		return render_template("userRecords.html", loggedIn="yes", username=g.username, results=results)
 		
@@ -395,8 +374,6 @@ def userRecords():
 
 @app.route("/approve/<table>/<approveId>", methods=['POST', 'GET'])
 def approve(table, approveId):
-	print(table)
-	print(approveId)
 	if table == 'skaters':
 		record = '''INSERT INTO ''' + table + ''' (name, DOB, nationality, gender, skateboard, wheels, shoes, trucks, img_url) VALUES (?,?,?,?,?,?,?,?,?);'''
 	elif table =='skateboards':
@@ -410,13 +387,13 @@ def approve(table, approveId):
 	else:
 		record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
-	connTemp = sqlite3.connect('tempLibrary.db')
+	connTemp = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')
 	cTemp = connTemp.cursor()
 	try:
 		cTemp.execute('SELECT * FROM '+ table +' WHERE name LIKE (?)', (approveId,))
 		tempResults = cTemp.fetchall()
 		for data in tempResults:
-			conn = sqlite3.connect('library.db') 
+			conn = sqlite3.connect('/home/skateallday/tricktionary/library.db') 
 			with conn:
 				try:
 					c = conn.cursor()
@@ -437,7 +414,7 @@ def approve(table, approveId):
 
 @app.route("/delete/<table> <approveId>", methods=['POST', 'GET'])
 def delete(table, approveId):
-	connTemp = sqlite3.connect('tempLibrary.db')
+	connTemp = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')
 	cTemp = connTemp.cursor()
 	try:
 		cTemp.execute('DELETE FROM '+ table +' WHERE name LIKE (?)', (approveId, ))	

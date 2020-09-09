@@ -17,7 +17,7 @@
 
 .resultImgs{
     width:150px;
-    height:auto;
+    height:150px;
 }
 .altsections{
     padding-top:6vmax;
@@ -82,4 +82,9 @@
 
 .itemTitle{
     text-align: center;
+}
+
+.centered{
+    display: flex; 
+    justify-content: center;
 }
