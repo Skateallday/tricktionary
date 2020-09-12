@@ -241,30 +241,30 @@ def logout():
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/signup', methods=['GET', 'POST'])
 def SignUp():
-        if g.username:
-                return redirect('home')
-        else:
-                registerForm = registration(request.form) 
-                if request.method == 'POST':
-                        pw_hash =bcrypt.generate_password_hash(registerForm.password.data)
-                        newEntry = [((registerForm.username.data), pw_hash, (registerForm.emailAddress.data), 'No')]
+	if g.username:
+		return redirect('home')
+	else:
+		registerForm = registration(request.form) 
+		if request.method == 'POST':
+			pw_hash =bcrypt.generate_password_hash(registerForm.password.data)
+			newEntry = [((registerForm.username.data), pw_hash, (registerForm.emailAddress.data), 'No')]
 
-                        conn =sqlite3.connect('/home/skateallday/tricktionary/library.db')
-                        with conn:
-                                c =conn.cursor()
-                                try:
-                                        signupSQL = '''INSERT INTO users (username, password, email, admin) VALUES(?,?,?,?)'''
-                                        c.executemany(signupSQL, newEntry)
-                                except:
-                                        flash("This is already an account, please log in with those details or change details.")
-                                        c.commit()
-                                        return render_template("signup.html", form=registerForm)
-                                flash((registerForm.username.data) + " Successfully Registered!")
-                                session['logged_in'] = True
-                                session['username'] = (registerForm.username.data)
-                                return redirect('account')                                
-                        return render_template("signup.html", form=registerForm)
-                return render_template('signup.html', form=registerForm)
+			conn =sqlite3.connect('../tricktionary/library.db')
+			with conn:
+					c =conn.cursor()
+					try:
+						signupSQL = '''INSERT INTO users (username, password, email, admin) VALUES(?,?,?,?)'''
+						c.executemany(signupSQL, newEntry)
+						flash((registerForm.username.data) + " Successfully Registered!")
+						session['logged_in'] = True
+						session['username'] = (registerForm.username.data)
+						return redirect('home')     
+					except:
+						flash("This is already an account, please log in with those details or change details.")
+						c.commit()
+						return render_template("signup.html", form=registerForm)				
+		return render_template("signup.html", form=registerForm)
+	return render_template('signup.html', form=registerForm)
 
 #####################################################################
 #																	#
