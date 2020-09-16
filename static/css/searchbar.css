@@ -7,6 +7,15 @@
          -o-animation: fadein 3s; /* Opera < 12.1 */
             animation: fadein 3s;
 }
+
+@media only screen and (max-width: 600px) {
+
+    #searchBar {
+        display: none !important;
+    }
+    
+}
+
 input.transparent-input{
     background-color:transparent !important;
     border:none !important;
