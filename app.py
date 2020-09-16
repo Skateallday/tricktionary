@@ -175,11 +175,11 @@ def contact():
 @app.route('/list/<string:category>', methods=['POST', 'GET'])
 def lists(category):
 	results="Skater"
-	txt_url=open('/home/skateallday/tricktionary/static/text/' + category + '.txt') 
+	txt_url=open( os.path.join(app.root_path, 'static/text/' + category + '.txt') )
 	content = txt_url.read()
 	txt_url.close()
 	if request.method == 'GET':
-		conn = sqlite3.connect('/home/skateallday/tricktionary/library.db')
+		conn = sqlite3.connect( os.path.join(app.root_path,'library.db'))
 		with conn:
 			c = conn.cursor()
 			try:
@@ -210,7 +210,7 @@ def LogIn():
 		else:
 			form = loginForm(request.form)       
 			if request.method == 'POST':  
-					conn = sqlite3.connect('/home/skateallday/tricktionary/library.db')                
+					conn = sqlite3.connect( os.path.join(app.root_path, 'library.db') )               
 					with conn:
 							c = conn.cursor()
 							try:
@@ -249,7 +249,7 @@ def SignUp():
 			pw_hash =bcrypt.generate_password_hash(registerForm.password.data)
 			newEntry = [((registerForm.username.data), pw_hash, (registerForm.emailAddress.data), 'No')]
 
-			conn =sqlite3.connect('../tricktionary/library.db')
+			conn =sqlite3.connect( os.path.join(app.root_path,'library.db'))
 			with conn:
 					c =conn.cursor()
 					try:
@@ -276,7 +276,7 @@ def SignUp():
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():      
         if g.username:
-                conn =sqlite3.connect('/home/skateallday/tricktionary/library.db')
+                conn =sqlite3.connect( os.path.join(app.root_path,'library.db'))
                 c = conn.cursor()
 
                 c.execute('SELECT * FROM users WHERE username LIKE (?)', (g.username, ))
@@ -297,7 +297,7 @@ def profile():
 @app.route("/adminPanel", methods=['GET', 'POST'])
 def admin():
 	if g.username:
-		conn =sqlite3.connect('/home/skateallday/tricktionary/library.db')
+		conn =sqlite3.connect( os.path.join(app.root_path,'library.db'))
 		c = conn.cursor()
 		c.execute('SELECT * FROM users WHERE username LIKE (?)', (g.username, ))
 		admin = c.fetchall()
@@ -341,7 +341,7 @@ def choosenApprove(chooseApprove):
 		table = "shoes"
 
 	if request.method == 'GET':
-				conn = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')    
+				conn = sqlite3.connect( os.path.join(app.root_path,'tempLibrary.db') )
 				with conn:
 						c = conn.cursor()
 						try:	
@@ -363,7 +363,7 @@ def choosenApprove(chooseApprove):
 
 @app.route("/userRecords", methods=['POST', 'GET'])
 def userRecords():
-	conn = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')
+	conn = sqlite3.connect( os.path.join(app.root_path,'tempLibrary.db'))
 	c = conn.cursor()
 	c.execute('SELECT * from wheels')
 	results = c.fetchall()
@@ -387,13 +387,13 @@ def approve(table, approveId):
 	else:
 		record = '''INSERT INTO ''' + table + ''' (name, est, nationality, img_url) VALUES (?,?,?,?);'''
 
-	connTemp = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')
+	connTemp = sqlite3.connect( os.path.join(app.root_path, 'tempLibrary.db'))
 	cTemp = connTemp.cursor()
 	try:
 		cTemp.execute('SELECT * FROM '+ table +' WHERE name LIKE (?)', (approveId,))
 		tempResults = cTemp.fetchall()
 		for data in tempResults:
-			conn = sqlite3.connect('/home/skateallday/tricktionary/library.db') 
+			conn = sqlite3.connect( os.path.join(app.root_path, 'library.db') )
 			with conn:
 				try:
 					c = conn.cursor()
@@ -414,7 +414,7 @@ def approve(table, approveId):
 
 @app.route("/delete/<table> <approveId>", methods=['POST', 'GET'])
 def delete(table, approveId):
-	connTemp = sqlite3.connect('/home/skateallday/tricktionary/tempLibrary.db')
+	connTemp = sqlite3.connect( os.path.join(app.root_path,'tempLibrary.db'))
 	cTemp = connTemp.cursor()
 	try:
 		cTemp.execute('DELETE FROM '+ table +' WHERE name LIKE (?)', (approveId, ))	
