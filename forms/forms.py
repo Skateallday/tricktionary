@@ -1,13 +1,11 @@
 
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField, \
-    FileField, TextField, validators, RadioField, SelectMultipleField
+from wtforms import StringField, TextField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField, \
+    FileField, StringField, validators, RadioField, SelectMultipleField
 from wtforms.widgets import TextArea
 from wtforms.widgets import ListWidget, CheckboxInput
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
-from wtforms.fields.html5 import DateField
-from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms_components import DateTimeField, DateRange
+from wtforms.fields import DateField
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
@@ -26,7 +24,7 @@ class recordSelection(FlaskForm):
 class contactForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=3, max=30)])
     emailAddress = StringField('Email', validators=[DataRequired(), Email()])
-    message = TextField('Write your message here...', validators=[DataRequired(), Length(min=20, max=250)])
+    message = StringField('Write your message here...', validators=[DataRequired(), Length(min=20, max=250)])
     submit = SubmitField('Send!')
 
 

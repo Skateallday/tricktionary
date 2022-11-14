@@ -54,7 +54,9 @@
     
     </ul>
     
-    {% if loggedIn == 'yes' %}
+    
+    <div class="form-inline my-2 my-lg-0">
+      {% if loggedIn == 'yes' %}
       <ul class="navbar-nav mr-auto">
         <li><a class="btn btn-outline-success" role="button" aria-pressed="true" href={{url_for('profile')}}>{{ username }}
         </a>
@@ -70,10 +72,7 @@
       </li>
     </ul>
     {% endif %}
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search Coming Soon" aria-label="Search">
-      <button class="btn btn-outline-light my-2 my-sm-0"  disabled type="submit">Search</button>
-    </form>
+  </div>
   </div>
 </nav>
 </header>
